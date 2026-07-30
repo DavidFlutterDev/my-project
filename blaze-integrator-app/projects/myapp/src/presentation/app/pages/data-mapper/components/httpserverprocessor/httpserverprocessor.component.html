@@ -1,0 +1,207 @@
+<div id="column-9f878877-1bad-423f-af26-24f285cb254f" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_33"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_33Suite"
+    [formValue]="form_33FormValue()" (validChange)="form_33FormValid.set($event)"
+    (errorsChange)="form_33Errors.set($event)" (formValueChange)="setform_33FormValue($event)">
+
+    <div id="row-1" class="grid w-full gap-4 grid-cols-3">
+      <!-- <cl-input id="address" name="address" [properties]="httpServerprocessorService.addressProperties"
+        [ngModel]="form_33Vm.formValue.address">
+      </cl-input> -->
+      <cl-input id="path" name="path" [properties]="httpServerprocessorService.pathProperties"
+        [ngModel]="form_33Vm.formValue.path">
+      </cl-input>
+      <cl-multiselect id="allowedVerbs" name="allowed_verbs"
+        [properties]="httpServerprocessorService.allowedVerbsProperties" [ngModel]="form_33Vm.formValue.allowed_verbs">
+      </cl-multiselect>
+      <cl-input id="timeout" name="timeout" [properties]="httpServerprocessorService.timeoutProperties"
+        [ngModel]="form_33Vm.formValue.timeout">
+      </cl-input>
+    </div>
+    <cl-accordion id="Cors" [properties]="httpServerprocessorService.CorsProperties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="httpServerprocessorService.CorsCorsHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-523e90c6-72e4-4b8e-a994-9b76f6a229b5" class="flex w-full flex-col">
+
+            <cl-radio id="corsFlag" name="cors_enabled" [properties]="httpServerprocessorService.corsFlagProperties"
+              [ngModel]="form_33Vm.formValue.cors_enabled">
+            </cl-radio>
+            <div id="column_18" class="flex w-full gap-4 flex-col p-2 bg-primary-50">
+              <cl-label id="allowedorigins" [properties]="httpServerprocessorService.allowedoriginsProperties">
+              </cl-label>
+
+              <div id="row-2" class="grid w-full grid-cols-3 gap-4">
+                @for(origin of httpServerprocessorService.allowedOrigins; track origin; let index =$index) {
+                <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+                  <mat-label class="flex items-center">Allowed Origin {{index}}</mat-label>
+
+                  <input matInput placeholder="Allowed Origin" [ngModel]="origin"
+                    [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                    (ngModelChange)="allowedOriginChange($event, index)">
+                </mat-form-field>
+
+                <mat-icon class="cursor-pointer text-blue-600 icon-size-6" [svgIcon]="'fss_icons:profile-delete'"
+                  (click)="ondeleteAllowedOrigins(index)">
+                </mat-icon>
+                }
+
+                <cl-button id="addMoreOrigins" [properties]="httpServerprocessorService.addMoreOriginsProperties">
+                </cl-button>
+              </div>
+            </div>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+
+    </cl-accordion>
+
+    <cl-accordion id="syncResponseAccordion" [properties]="httpServerprocessorService.syncResponseAccordionProperties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header
+          [properties]="httpServerprocessorService.syncResponseAccordionSyncresponseHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-ad62e7e6-7a69-4a3e-a2a7-ac6c3374fdc8" class="flex w-full flex-col">
+
+            <!-- <cl-input id="status" name="sync_response_status" [properties]="httpServerprocessorService.statusProperties"
+              [ngModel]="form_33Vm.formValue.sync_response_status">
+            </cl-input> -->
+
+            <cl-accordion id="accordion11" [properties]="httpServerprocessorService.accordion11Properties">
+              <cl-expansion-panel>
+                <cl-expansion-panel-header [properties]="httpServerprocessorService.accordion11HeadersHeaderProperties">
+                </cl-expansion-panel-header>
+
+                <cl-expansion-panel-content>
+                  <div id="column-0d78e60b-c380-474d-9ac7-db7b38a5fac7" class="flex w-full flex-col">
+                    <cl-card id="card3" [properties]="httpServerprocessorService.card3Properties">
+
+                      <div id="row_41" class="flex gap-4 w-full flex-row">
+                        <cl-label id="label10" class="flex w-1/2  px-2"
+                          [properties]="httpServerprocessorService.label10Properties">
+                        </cl-label>
+                        <cl-label id="label11" class="flex w-1/2 "
+                          [properties]="httpServerprocessorService.label11Properties">
+                        </cl-label>
+                        <cl-icon id="icon6" [properties]="httpServerprocessorService.icon6Properties">
+                        </cl-icon>
+                      </div>
+
+                      <div id="row_45" class="flex gap-4 w-full flex-col bg-primary-50">
+                        @for(header of httpServerprocessorService.headers; track header; let index = $index) {
+                        <div id="row_13" class="flex gap-4 px-2 w-full flex-row items-center">
+                          <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+                            <mat-label class="flex items-center">Key {{index}}</mat-label>
+                            <input matInput placeholder="Key" [ngModel]="header.key"
+                              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                              (ngModelChange)="onHeaderKeyChange($event, index)">
+
+                          </mat-form-field>
+
+                          <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+                            <mat-label class="flex items-center">Value {{index}}</mat-label>
+                            <input matInput placeholder="Value" [ngModel]="header.value"
+                              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                              (ngModelChange)="onHeaderValueChange($event, index)">
+                          </mat-form-field>
+
+                          <mat-icon class="cursor-pointer text-blue-600 icon-size-6"
+                            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteHeaders(index)">
+                          </mat-icon>
+                        </div>
+                        }
+
+                        <cl-button id="addMoreHeaders"
+                          [properties]="httpServerprocessorService.addMoreHeadersProperties">
+                        </cl-button>
+                      </div>
+                    </cl-card>
+                  </div>
+                </cl-expansion-panel-content>
+              </cl-expansion-panel>
+
+              <cl-expansion-panel>
+                <cl-expansion-panel-header
+                  [properties]="httpServerprocessorService.accordion11MetadataheadersHeaderProperties">
+                </cl-expansion-panel-header>
+
+                <cl-expansion-panel-content>
+                  <div id="column-bdc0a07a-a9a5-42c6-a989-7a659076348a" class="flex w-full flex-col">
+                    <div id="column_48" class="flex w-full gap-4 flex-col bg-primary-50 mb-4 p-2">
+                      <cl-label id="includePrefixes"
+                        [properties]="httpServerprocessorService.includePrefixesProperties">
+                      </cl-label>
+
+                      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+                        @for(metadataPrefix of httpServerprocessorService.metadata_headers.include_prefixes; track
+                        metadataPrefix; let index =$index) {
+
+                        <div id="row-2" class="flex w-full flex-row gap-4">
+
+                          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+                            <mat-label class="flex items-center">Prefix {{index}}</mat-label>
+                            <input matInput placeholder="Prefix" [ngModel]="metadataPrefix"
+                              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                              (ngModelChange)="metadataPrefixChange($event, index)">
+                          </mat-form-field>
+
+                          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+                            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteMetaDataPrefix(index)">
+                          </mat-icon>
+                        </div>
+                        }
+
+                        <cl-button id="button29" [properties]="httpServerprocessorService.addMorePrefixesProperties">
+                        </cl-button>
+                      </div>
+
+                    </div>
+                    <div id="column_52" class="flex w-full gap-4 flex-col bg-primary-50 p-2">
+                      <cl-label id="label29" [properties]="httpServerprocessorService.includePatternLabelProperties">
+                      </cl-label>
+
+
+                      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+                        @for(metadataPattern of httpServerprocessorService.metadata_headers.include_patterns; track
+                        metadataPattern; let index =$index) {
+                        <div id="row-2" class="flex w-full flex-row gap-4">
+                          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+                            <mat-label class="flex items-center">Pattern {{index}}</mat-label>
+                            <input matInput placeholder="Pattern" [ngModel]="metadataPattern"
+                              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                              (ngModelChange)="metadataPatternChange($event, index)">
+                          </mat-form-field>
+
+                          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+                            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteMetaDataPattern(index)">
+                          </mat-icon>
+                        </div>
+                        }
+
+                        <cl-button id="addMorePrefixes"
+                          [properties]="httpServerprocessorService.addMorePatternProperties">
+                        </cl-button>
+                      </div>
+
+                    </div>
+                  </div>
+                </cl-expansion-panel-content>
+              </cl-expansion-panel>
+
+            </cl-accordion>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+    </cl-accordion>
+  </form>
+
+  <div id="row_28" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="save" [properties]="httpServerprocessorService.saveProperties">
+    </cl-button>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div id="column_999997" class="flex w-full flex-col ">
+  <app-breadcrumb [data]="addjsonschemaService.breadcrumbData"></app-breadcrumb>
+
+  <div id="row-6a45424f-8fb0-4278-ae15-3b08ed888a85" class="gap-4 w-full flex flex-row">
+    <div class="flex-inital w-4/6">
+      <cl-card id="formCard" [properties]="formCardProperties">
+        <form clValidationForm id="form_41" (validChange)="form_41FormValid.set($event)" [suite]="form_41Suite"
+          class="grid w-full gap-4 grid-cols-2" [formValue]="form_41FormValue()"
+          (errorsChange)="form_41Errors.set($event)" (formValueChange)="setform_41FormValue($event)">
+          <cl-input id="jsonSchemaName" name="jsonSchemaName" [properties]="jsonSchemaNameProperties"
+            [(ngModel)]="form_41Vm.formValue.jsonSchemaName">
+          </cl-input>
+        </form>
+
+        <form clValidationForm [suite]="treeSuite" [formValue]="treeFormValue()"
+          (formValueChange)="treeFormValues($event)" (validChange)="treeValidChange($event)" #treeForm="ngForm">
+          <cl-dynamic-tree-view id="treeView" name="treeView" class="flex size-full"
+            [properties]="dynamicTreeViewProperties" [ngForm]="treeForm"></cl-dynamic-tree-view>
+        </form>
+
+
+        <div id="row_43" class="flex w-full flex-row border-t-2 gap-4 justify-end mt-10">
+          <cl-button id="previewButton" [properties]="previewButtonProperties" (click)="onClickPreview()">
+          </cl-button>
+          <cl-button id="save" [properties]="saveProperties" (click)="onClickSave()">
+          </cl-button>
+        </div>
+      </cl-card>
+    </div>
+    <div class="flex-inital w-2/6">
+      <cl-card id="previewCard" [properties]="previewCardProperties">
+        <div id="row-8acfc776-19a4-4071-a290-3fd46aa1bc24"
+          class="flex gap-4 w-full flex-row justify-between items-center mb-1">
+          <cl-label id="preview" [properties]="previewProperties">
+          </cl-label>
+          <div id="row-8baf8ccd-3a4a-4b83-ba59-4303458cba06" class="flex gap-4 flex-row items-center">
+            <cl-icon id="zoomIn" [properties]="zoomInProperties">
+            </cl-icon>
+            <cl-icon id="zoomOut" [properties]="zoomOutProperties">
+            </cl-icon>
+            <div id="row-924f2524-4ef0-4182-bb3b-0e9bbdabb0d6" class="flex gap-4 w-full flex-row border-l-2">
+              <cl-icon id="expand" [properties]="expandProperties">
+              </cl-icon>
+            </div>
+          </div>
+        </div>
+        <cl-code-view id="codeView" [properties]="codeViewProperties" code="previewJson"></cl-code-view>
+      </cl-card>
+    </div>
+  </div>
+</div>
+
+

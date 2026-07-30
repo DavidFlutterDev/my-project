@@ -1,0 +1,208 @@
+<div id="column-4d5ac683-e70b-4e3b-a190-b7b3cf660dd9" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_8"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_8Suite"
+    [formValue]="form_8FormValue()" (validChange)="form_8FormValid.set($event)"
+    (errorsChange)="form_8Errors.set($event)" (formValueChange)="setform_8FormValue($event)">
+
+    <div id="row-1" class="grid w-full gap-4 grid-cols-3">
+      <cl-input id="url" name="url" [properties]="httpClientProcessorService.urlProperties"
+        [ngModel]="form_8Vm.formValue.url">
+      </cl-input>
+      <cl-select id="verb" name="verb" [properties]="httpClientProcessorService.verbProperties"
+        [ngModel]="form_8Vm.formValue.verb">
+      </cl-select>
+      <cl-input id="timeOut" name="timeOut" [properties]="httpClientProcessorService.timeOutProperties"
+        [ngModel]="form_8Vm.formValue.timeOut">
+      </cl-input>
+
+      @if(node.category === 'Processor') {
+      <cl-input id="retryPeriod" name="retry_period" [properties]="httpClientProcessorService.retryPeriodProperties"
+        [ngModel]="form_8Vm.formValue.retry_period">
+      </cl-input>
+      <cl-input id="maxRetryPeriod" name="max_retry_backoff"
+        [properties]="httpClientProcessorService.maxRetryPeriodProperties"
+        [ngModel]="form_8Vm.formValue.max_retry_backoff">
+      </cl-input>
+      <cl-input id="retries" name="retries" [properties]="httpClientProcessorService.retriesProperties"
+        [ngModel]="form_8Vm.formValue.retries">
+      </cl-input>
+      <cl-radio id="propagateResponseRadio" name="propagate_response"
+        [properties]="httpClientProcessorService.propagateResponseRadioProperties"
+        [ngModel]="form_8Vm.formValue.propagate_response">
+      </cl-radio>
+      }
+    </div>
+
+    <div id="column_9" class="flex w-full gap-4 flex-col bg-primary-50 p-2">
+      <cl-label id="headers" [properties]="httpClientProcessorService.headersProperties">
+      </cl-label>
+
+      @for(header of httpClientProcessorService.headers; track header; let index = $index) {
+      <div id="row_13" class="flex gap-4 w-full flex-row items-center">
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Name {{index}}</mat-label>
+          <input matInput placeholder="Name" [ngModel]="header.header_name"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+            (ngModelChange)="onHeaderNameChange($event, index)" />
+
+          <!-- <mat-error>Header name is required</mat-error> -->
+
+        </mat-form-field>
+
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Value {{index}}</mat-label>
+          <input matInput placeholder="Value" [ngModel]="header.value"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+            (ngModelChange)="onHeaderValueChange($event, index)" />
+
+          <!-- <mat-error>Header value is required</mat-error> -->
+        </mat-form-field>
+
+
+        <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+          [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteHeaders(index)">
+        </mat-icon>
+      </div>
+      }
+
+      <cl-button id="addMoreHeadersButton" [properties]="httpClientProcessorService.addMoreHeadersButtonProperties">
+      </cl-button>
+    </div>
+
+    @if(node.category === 'Processor') {
+    <div id="column_13" class="flex w-full gap-4 flex-col bg-primary-50 p-2">
+      <cl-label id="metaData" [properties]="httpClientProcessorService.metaDataProperties">
+      </cl-label>
+
+      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+        @for(metadataPattern of httpClientProcessorService.metadataIncludePatterns; track metadataPattern; let index =
+        $index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">Pattern {{index}}</mat-label>
+            <input matInput placeholder="Pattern" [ngModel]="metadataPattern"
+              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+              (ngModelChange)="metadataPatternChange($event, index)">
+          </mat-form-field>
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteMetaDataPattern(index)">
+          </mat-icon>
+
+        </div>
+        }
+
+        <cl-button id="addMorePatterns" [properties]="httpClientProcessorService.addMorePatternsProperties">
+        </cl-button>
+      </div>
+
+    </div>
+
+    <form clValidationForm id="form_9"
+      class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_9Suite"
+      [formValue]="form_8FormValue().basic_auth" (formValueChange)="setform_9FormValue($event)">
+
+      <cl-accordion id="basicAuthAccordion" [properties]="httpClientProcessorService.basicAuthAccordionProperties">
+        <cl-expansion-panel>
+          <cl-expansion-panel-header
+            [properties]="httpClientProcessorService.basicAuthAccordionBasicauthHeaderProperties">
+          </cl-expansion-panel-header>
+
+          <cl-expansion-panel-content>
+            <div id="row-2" class="grid w-full gap-4 grid-cols-3">
+              <cl-radio id="basicAuthRadio" name="enabled"
+                [properties]="httpClientProcessorService.basicAuthRadioProperties"
+                [ngModel]="form_8Vm.formValue.basic_auth?.enabled">
+              </cl-radio>
+              <cl-input id="username" name="username" [properties]="httpClientProcessorService.usernameProperties"
+                [ngModel]="form_8Vm.formValue.basic_auth?.username">
+              </cl-input>
+              <cl-input id="password" name="password" [properties]="httpClientProcessorService.passwordProperties"
+                [ngModel]="form_8Vm.formValue.basic_auth?.password">
+              </cl-input>
+
+            </div>
+          </cl-expansion-panel-content>
+        </cl-expansion-panel>
+
+      </cl-accordion>
+
+    </form>
+
+    <cl-accordion id="ExtracctHeaders" [properties]="httpClientProcessorService.ExtracctHeadersProperties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header
+          [properties]="httpClientProcessorService.ExtracctHeadersExtractheadersHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-b9acbdae-2a0a-44d1-934b-862fa9a5573e" class="flex w-full flex-col">
+            <div id="column_17" class="flex w-full gap-4 flex-col bg-primary-50 p-2 mt-4">
+              <cl-label id="includePatterns" [properties]="httpClientProcessorService.includePatternsProperties">
+              </cl-label>
+
+              <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+                @for(extractHeaderPattern of httpClientProcessorService.extractHeaderIncludePatterns; track
+                extractHeaderPattern; let index = $index) {
+                <div id="row-2" class="flex w-full flex-row gap-4">
+                  <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+                    <mat-label class="flex items-center">Pattern {{index}}</mat-label>
+                    <input matInput placeholder="Pattern" [ngModel]="extractHeaderPattern"
+                      [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                      (ngModelChange)="extractHeaderPatternChange($event, index)">
+                  </mat-form-field>
+
+                  <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+                    [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteExtractHeaderIncludePatterns(index)">
+                  </mat-icon>
+
+                </div>
+                }
+
+                <cl-button id="button17" [properties]="httpClientProcessorService.addMoreExPattersProperties">
+                </cl-button>
+              </div>
+
+            </div>
+            <div id="column_7" class="flex w-full gap-4 flex-col bg-primary-50 p-2">
+              <cl-label id="includePrefixes" [properties]="httpClientProcessorService.includePrefixesProperties">
+              </cl-label>
+
+              <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+                @for(extractHeaderPrefix of httpClientProcessorService.extractHeaderIncludePrefixes; track
+                extractHeaderPrefix; let index = $index) {
+                <div id="row-2" class="flex w-full flex-row gap-4">
+                  <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+                    <mat-label class="flex items-center">Prefix {{index}}</mat-label>
+                    <input matInput placeholder="Prefix" [ngModel]="extractHeaderPrefix"
+                      [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                      (ngModelChange)="extractHeaderPrefixChange($event, index)">
+                  </mat-form-field>
+
+                  <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+                    [svgIcon]="'fss_icons:profile-delete'" (click)="onDeletExcHeaderPrefixes(index)">
+                  </mat-icon>
+
+                </div>
+                }
+
+                <cl-button id="addMoreInlcudePrefixes"
+                  [properties]="httpClientProcessorService.addMoreInlcudePrefixesProperties">
+                </cl-button>
+              </div>
+
+            </div>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+
+    </cl-accordion>
+    }
+
+  </form>
+
+  <div id="row_28" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="save" [properties]="httpClientProcessorService.saveProperties">
+    </cl-button>
+  </div>
+</div>

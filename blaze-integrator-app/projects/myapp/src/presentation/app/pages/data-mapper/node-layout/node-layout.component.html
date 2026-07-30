@@ -1,0 +1,151 @@
+@if (pNode.type === 'single') {
+<div id="node-{{ pNode.id }}" class="flex flex-col">
+  @if (nodeIndex > 0) {
+  <div class="input-top" id="input-top-{{ pNode.id }}"></div>
+  }
+
+  @if (isOutputNode && !pNode.parentId) {
+  <div class="input-left" id="input-left-{{ pNode.id }}"></div>
+  }
+  <app-node class="w-full node" [ngClass]="isOutputNode ? 'output' : 'processor'"
+    [node]="pNode" [showAddIcon]="false"[showDeleteIcon]="showDeleteIcon"
+    (nodeClick)="onNodeClick($event)" (deleteNode)="onDeleteNode($event)">
+  </app-node>
+
+  @if (nodeIndex < totalNodes - 1) { <div class="output-bottom" id="output-bottom-{{ pNode.id }}">
+</div>
+}
+</div>
+}
+
+@if (pNode.type === 'group') {
+<div class="flex min-w-40 justify-between">
+  <div class="flex">
+    <label class="font-bold text-lg">{{ getFormattedLabel(pNode.label!) }}</label>
+  </div>
+  <div class="flex">
+    @if(showAddIcon) {
+    <mat-icon class="cursor-pointer text-primary icon-size-5" [svgIcon]="'heroicons_outline:plus-circle'"
+      (click)="onAddNode(pNode)">
+    </mat-icon>
+    }
+    @if(showDeleteIcon) {
+    <mat-icon class="cursor-pointer text-warn icon-size-5" [svgIcon]="'heroicons_outline:trash'"
+      (click)="onDeleteNode(pNode)">
+    </mat-icon>
+    }
+  </div>
+</div>
+<div class="flex flex-col w-full">
+  <div class="flex border-dashed border border-black bg-white rounded-xl z-10 w-full p-4">
+    @if (isOutputNode && !pNode.parentId) {
+    <div class="size-1 bg-gray-800 relative rounded-full -left-5 top-10" id="input-left-{{ pNode.id }}"></div>
+    }
+    <div class="flex w-full flex-col">
+      @if (nodeIndex > 0) {
+      <div class="size-1 rounded-full bg-gray-800 self-center relative -top-6" id="input-top-{{ pNode.id }}"></div>
+      }
+      <div class="flex flex-col w-full justify-between items-center gap-10">
+        @for (groupChild of pNode.children; track groupChild; let groupChildIndex = $index) {
+        @if(groupChild) {
+        <div #groupChildNode>
+          <app-node-layout [isOutputNode]="isOutputNode" [pNode]="groupChild" [nodeIndex]="groupChildIndex"
+            [totalNodes]="pNode.children!.length" [svgContainerRef]="svgContainerRef" [showAddIcon]="showAddIcon"
+            [showDeleteIcon]="showDeleteIcon" (nodeClick)="onNodeClick($event)" (addNode)="onAddNode($event)"
+            (deleteNode)="onDeleteNode($event)">
+          </app-node-layout>
+        </div>
+        }
+        }
+      </div>
+      @if (nodeIndex < totalNodes - 1) { <div class="size-1 rounded-full bg-gray-800 self-center relative -bottom-5"
+        id="output-bottom-{{ pNode.id }}">
+    </div>
+    }
+  </div>
+</div>
+</div>
+}
+
+@if (pNode.type === 'tree') {
+<div #switchParent id="switch-{{ pNode.id }}" class="node" [ngClass]="isOutputNode ? 'output' : 'processor'">
+  @if (isOutputNode) {
+  <div class="input-left" id="input-left-{{ pNode.id }}"></div>
+  }
+  <div class="flex flex-col w-full">
+    @if (!isOutputNode) {
+    <div class="input-top" id="input-top-{{ pNode.id }}"></div>
+    }
+    <app-node
+      [node]="pNode" [showAddIcon]="false" [showDeleteIcon]="showDeleteIcon"
+      (nodeClick)="onNodeClick($event)" (deleteNode)="onDeleteNode($event)">
+    </app-node>
+
+    <div class="output-bottom" id="switch-output-bottom-{{pNode.id}}"> </div>
+  </div>
+</div>
+
+<div class="flex w-full mt-10">
+  <div class="flex flex-row size-auto gap-16">
+    @for (treeCondition of pNode.children; track treeCondition; let treeConditionIndex = $index) {
+
+    <div class="flex flex-col">
+      <div class="flex flex-col relative">
+        <div class="input-top" id="input-top-{{treeCondition.id}}"></div>
+      </div>
+
+      <div class="flex flex-col h-auto border-dashed border border-black p-4 bg-white rounded-xl">
+        <div class=" flex flex-row gap-2 border-dashed border-b border-black z-10 min-w-40">
+
+          <div class="flex justify-start w-1/2">
+            <label class="font-bold text-lg">{{treeCondition.label}}</label>
+          </div>
+
+          <div class="flex gap-2 justify-end w-1/2">
+            <div class="flex">
+              @if(showAddIcon) {
+              <mat-icon class="cursor-pointer text-primary icon-size-5" [svgIcon]="'heroicons_outline:plus-circle'"
+                (click)="onAddNode(treeCondition)">
+              </mat-icon>
+              }
+              <!-- @if(showDeleteIcon) {
+              <mat-icon class="cursor-pointer text-warn icon-size-5" [svgIcon]="'heroicons_outline:trash'"
+                (click)="onDeleteNode(treeCondition)">
+              </mat-icon>
+              } -->
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex flex-row">
+          <div class="flex flex-col w-full justify-between items-center m-3 gap-10">
+            @for (caseChild of treeCondition.children; track caseChild; let caseChildIndex = $index) {
+            <div #treeConditionChildNode class="flex flex-row">
+              <app-node-layout [isOutputNode]="isOutputNode" [pNode]="caseChild" [nodeIndex]="caseChildIndex"
+                [totalNodes]="treeCondition.children!.length" [svgContainerRef]="svgContainerRef"
+                [showAddIcon]="showAddIcon" [showDeleteIcon]="showDeleteIcon" (nodeClick)="onNodeClick($event)"
+                (addNode)="onAddNode($event)" (deleteNode)="onDeleteNode($event)">
+              </app-node-layout>
+            </div>
+            }
+
+          </div>
+          @if (nodeIndex === totalNodes - 1 && !isOutputNode) {
+          <div class="size-1 bg-gray-800 relative rounded-full -right-5 justify-center"
+            id="output-right-{{ treeCondition.id }}"></div>
+          }
+        </div>
+      </div>
+
+      @if (nodeIndex != totalNodes - 1) {
+      <div class="flex flex-col">
+        <div class="output-bottom" id="output-bottom-{{treeCondition.id}}"></div>
+      </div>
+      }
+
+    </div>
+    }
+  </div>
+</div>
+}

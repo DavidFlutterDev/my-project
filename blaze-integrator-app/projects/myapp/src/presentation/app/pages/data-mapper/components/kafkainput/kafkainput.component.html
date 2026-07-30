@@ -1,0 +1,94 @@
+<div id="column-e8a7f327-5c5e-48bb-982e-02a198ad2cd2" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_25"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_25Suite"
+    [formValue]="form_25FormValue()" (validChange)="form_25FormValid.set($event)"
+    (errorsChange)="form_25Errors.set($event)" (formValueChange)="setform_25FormValue($event)">
+
+    <div id="column_3" class="flex w-full gap-4 flex-col bg-primary-50 mb-4 p-2">
+      <cl-label id="addressesabel" [properties]="kafkaInputService.addressesabelProperties">
+      </cl-label>
+
+      <div id="grid_5" class="grid w-full gap-4 grid-cols-2">
+
+        @for(address of kafkaInputService.addressList; track address; let index = $index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">address {{index}}</mat-label>
+
+            <input matInput placeholder="path" [ngModel]="address"
+              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+              (ngModelChange)="addressValueChange($event, index)" required />
+
+            <mat-error>Address is required</mat-error>
+          </mat-form-field>
+          @if(kafkaInputService.addressList.length > 1) {
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteAddress(index)">
+          </mat-icon>
+          }
+        </div>
+        }
+
+        <cl-button id="addMoreAddressButton" [properties]="kafkaInputService.addMoreAddressButtonProperties">
+        </cl-button>
+      </div>
+    </div>
+
+    <div id="column_7" class="flex w-full gap-4 flex-col bg-primary-50 mb-4 p-2">
+      <cl-label id="topicsLabel" [properties]="kafkaInputService.topicsLabelProperties">
+      </cl-label>
+      <div id="grid_9" class="grid w-full gap-4 grid-cols-3">
+        @for(topic of kafkaInputService.topicList; track topic; let index = $index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">Topic {{index}}</mat-label>
+
+            <input matInput placeholder="topic" [ngModel]="topic"
+              [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="topicValueChange($event, index)"
+              required />
+
+            <mat-error>Topic is required</mat-error>
+          </mat-form-field>
+          @if(kafkaInputService.addressList.length > 1) {
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteTopic(index)">
+          </mat-icon>
+          }
+        </div>
+        }
+        <cl-button id="addMoreTopicsButton" [properties]="kafkaInputService.addMoreTopicsButtonProperties">
+        </cl-button>
+      </div>
+    </div>
+
+
+    <div id="grid_11" class="grid w-full gap-4 grid-cols-3">
+      <cl-input id="targetVersion" name="target_version" [properties]="kafkaInputService.targetVersionProperties"
+        [ngModel]="form_25Vm.formValue.target_version">
+      </cl-input>
+      <cl-input id="consumerGroup" name="consumer_group" [properties]="kafkaInputService.consumerGroupProperties"
+        [ngModel]="form_25Vm.formValue.consumer_group">
+      </cl-input>
+      <cl-input id="clientID" name="client_id" [properties]="kafkaInputService.clientIDProperties"
+        [ngModel]="form_25Vm.formValue.client_id">
+      </cl-input>
+      <cl-radio id="startFromOldest" name="start_from_oldest" [properties]="kafkaInputService.startFromOldestProperties"
+        [ngModel]="form_25Vm.formValue.start_from_oldest">
+      </cl-radio>
+      <cl-input id="commitPeriod" name="commit_period" [properties]="kafkaInputService.commitPeriodProperties"
+        [ngModel]="form_25Vm.formValue.commit_period">
+      </cl-input>
+      <cl-input id="maxiimumProcessingPeriod" name="max_processing_period"
+        [properties]="kafkaInputService.maxiimumProcessingPeriodProperties"
+        [ngModel]="form_25Vm.formValue.max_processing_period">
+      </cl-input>
+    </div>
+
+  </form>
+
+  <div id="row_17" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="saveButton" [properties]="kafkaInputService.saveButtonProperties">
+    </cl-button>
+  </div>
+</div>

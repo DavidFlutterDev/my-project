@@ -1,0 +1,18 @@
+<div class="flex w-full flex-col">
+
+  <div class="p-4 pb-2 flex border-b-2">
+    <div class="flex-col w-full">
+      <label class="text-lg font-bold ml-2">Add Processor</label>
+    </div>
+    <cl-icon [properties]="closeIconProperties"></cl-icon>
+  </div>
+
+  <div class="flex flex-col w-full p-4">
+    <app-processor-autocomplete (onSelectProcess)="onSelectProcessComponent($event)"></app-processor-autocomplete>
+
+    <div class="flex flex-row w-full justify-end border-t-2">
+      <cl-button [properties]="addButtonProperties"></cl-button>
+    </div>
+  </div>
+
+</div>

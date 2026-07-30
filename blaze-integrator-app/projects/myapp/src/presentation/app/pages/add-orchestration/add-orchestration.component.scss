@@ -1,0 +1,19 @@
+.accordion-header {
+  display: flex;
+  align-items: center;
+}
+
+.accordion-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 10;
+  padding-bottom: 10;
+}
+
+.orchestration-details-acc {
+  mat-expansion-panel-header>span>mat-panel-title {
+    width: 60% !important;
+  }
+}
+

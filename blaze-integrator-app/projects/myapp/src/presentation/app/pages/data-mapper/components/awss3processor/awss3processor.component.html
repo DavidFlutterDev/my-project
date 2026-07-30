@@ -1,0 +1,127 @@
+<div id="column-8ffd6e40-2116-4efe-a046-57712560d6c9" class="flex w-full flex-col p-4">
+  <form clValidationForm id="form_1"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_1Suite"
+    [formValue]="form_1FormValue()" (validChange)="form_1FormValid.set($event)"
+    (errorsChange)="form_1Errors.set($event)" (formValueChange)="setform_1FormValue($event)">
+
+    <div id="grid-row" class="grid w-full gap-4 grid-cols-3 p-4">
+      <cl-input id="bucket" name="bucket" [properties]="awsS3ProcessorService.bucketProperties"
+        [ngModel]="form_1Vm.formValue.bucket">
+      </cl-input>
+      @if(node.category === 'Input') {
+      <cl-input id="prefix" name="prefix" [properties]="awsS3ProcessorService.prefixProperties"
+        [ngModel]="form_1Vm.formValue.prefix">
+      </cl-input>
+      }
+      @else if (node.category === 'Output'){
+      <cl-input id="path" name="path" [properties]="awsS3ProcessorService.pathProperties"
+        [ngModel]="form_1Vm.formValue.path">
+      </cl-input>
+      <cl-input id="timeout" name="timeout" [properties]="awsS3ProcessorService.timeoutProperties"
+        [ngModel]="form_1Vm.formValue.timeout">
+      </cl-input>
+      }
+
+      <cl-input id="region" name="region" [properties]="awsS3ProcessorService.regionProperties"
+        [ngModel]="form_1Vm.formValue.region">
+      </cl-input>
+      <cl-input id="endpoint" name="endpoint" [properties]="awsS3ProcessorService.endpointProperties"
+        [ngModel]="form_1Vm.formValue.endpoint">
+      </cl-input>
+    </div>
+
+    @if(node.category === 'Output') {
+    <div id="column_8" class="flex w-full gap-4 flex-col mt-4 bg-primary-50 p-4">
+      <cl-label id="metadata" [properties]="awsS3ProcessorService.metadataProperties">
+      </cl-label>
+
+      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+        @for(excludePrefix of awsS3ProcessorService.exclude_prefixes; track excludePrefix; let index = $index) {
+
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">Exclude prefix {{index}}</mat-label>
+            <input matInput placeholder="Exclude prefix" [ngModel]="excludePrefix"
+              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+              (ngModelChange)="excludePrefixesChange($event, index)">
+          </mat-form-field>
+
+
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteExcludePrefix(index)">
+          </mat-icon>
+        </div>
+        }
+
+        <cl-button id="addMoreExcludePrefixes" [properties]="awsS3ProcessorService.addMoreExcludePrefixesProperties">
+        </cl-button>
+      </div>
+    </div>
+    }
+
+
+    <cl-accordion id="credentials" [properties]="awsS3ProcessorService.credentialsProperties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="awsS3ProcessorService.credentialsCredentialsHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-1e745864-397b-4055-974d-9538fa6af094" class="grid w-full gap-4 grid-cols-3">
+
+            <cl-input id="profile" name="profile" [properties]="awsS3ProcessorService.profileProperties"
+              [ngModel]="form_1Vm.formValue.profile">
+            </cl-input>
+            <cl-input id="iD" name="iD" [properties]="awsS3ProcessorService.iDProperties"
+              [ngModel]="form_1Vm.formValue.iD">
+            </cl-input>
+            <cl-input id="secret" name="secret" [properties]="awsS3ProcessorService.secretProperties"
+              [ngModel]="form_1Vm.formValue.secret">
+            </cl-input>
+            <cl-input id="token" name="token" [properties]="awsS3ProcessorService.tokenProperties"
+              [ngModel]="form_1Vm.formValue.token">
+            </cl-input>
+            <cl-radio id="fromEc2Role" name="from_ec2_role" [properties]="awsS3ProcessorService.fromEc2RoleProperties"
+              [ngModel]="form_1Vm.formValue.from_ec2_role">
+            </cl-radio>
+            <cl-input id="role" name="role" [properties]="awsS3ProcessorService.roleProperties"
+              [ngModel]="form_1Vm.formValue.role">
+            </cl-input>
+            <cl-input id="roleExternalId" name="role_external_id"
+              [properties]="awsS3ProcessorService.roleExternalIdProperties"
+              [ngModel]="form_1Vm.formValue.role_external_id">
+            </cl-input>
+            @if(node.category === 'Input') {
+            <cl-radio id="deleteObjects" name="delete_objects"
+              [properties]="awsS3ProcessorService.deleteObjectsProperties"
+              [ngModel]="form_1Vm.formValue.delete_objects">
+            </cl-radio>
+            }
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+
+    </cl-accordion>
+
+    @if(node.category === 'Input') {
+    <cl-accordion id="scanner" [properties]="awsS3ProcessorService.scannerProperties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="awsS3ProcessorService.scannerScannerHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-5f44b705-84c1-483d-8295-3ac1c4dcc313" class="flex w-full flex-col">
+            <cl-select id="scannerType" name="scannerType" [properties]="awsS3ProcessorService.scannerTypeProperties"
+              [ngModel]="form_1Vm.formValue.scannerType">
+            </cl-select>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+    </cl-accordion>
+    }
+
+  </form>
+  <div id="row_28" class="flex gap-4 w-full flex-row justify-end mt-5">
+    <cl-button id="save" [properties]="awsS3ProcessorService.saveProperties">
+    </cl-button>
+  </div>
+</div>

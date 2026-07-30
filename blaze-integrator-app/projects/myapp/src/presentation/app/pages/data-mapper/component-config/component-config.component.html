@@ -1,0 +1,28 @@
+<div class="p-4 pb-2 flex border-b">
+  <div class="flex flex-row w-full">
+    <div class="flex flex-col">
+      <mat-icon class="text-primary icon-size-10" [svgIcon]="data.node.icon!">
+      </mat-icon>
+    </div>
+    <div class="flex flex-col w-full justify-top  ml-2">
+      <label class="text-xl text-primary font-bold">{{data.node.category}}</label>
+      <label class="text-md ml-2">{{data.node.label}}</label>
+    </div>
+  </div>
+  <cl-icon [properties]="closeIconProperties"></cl-icon>
+</div>
+@if(data.templateData?.templateJson) {
+<div class="flex p-4 w-full overflow-auto min-h-22 max-h-160">
+  <cl-dynamic-renderer class="flex w-full {{dynamicProperties.properties!.cssClass}}"
+    [properties]="dynamicProperties"></cl-dynamic-renderer>
+</div>
+
+<div class="flex flex-row w-full justify-end p-4">
+  <cl-button [properties]="saveButtonProperties!"></cl-button>
+</div>
+}
+@else {
+<cl-component-injector class="flex p-4 w-full " [component]="data.templateData?.component!"
+  [properties]="data.templateData?.componentProperties" (changeEvent)="componentFromChange($event)">
+</cl-component-injector>
+}

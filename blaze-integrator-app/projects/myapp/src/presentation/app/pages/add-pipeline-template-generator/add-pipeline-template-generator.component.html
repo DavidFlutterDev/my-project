@@ -1,0 +1,33 @@
+<div id="column_999997" class="flex w-full flex-col ">
+  <app-breadcrumb [data]="addpipelinetemplategeneratorService.breadcrumbData"></app-breadcrumb>
+
+  <cl-card id="card0" [properties]="card0Properties">
+    <form clValidationForm id="form_7" (validChange)="form_7Valid.set($event || false)" [suite]="form_7Suite"
+      class="grid w-full gap-4 grid-cols-2 px-48" (ngSubmit)="onform_7FormSubmit()" [formValue]="form_7FormValue()"
+      (formValueChange)="setform_7FormValue($event)">
+      <cl-input id="name" name="templatename" [properties]="nameProperties" [ngModel]="form_7Vm.formValue.templatename">
+      </cl-input>
+      <cl-radio id="type" name="type" [properties]="typeProperties" [ngModel]="form_7Vm.formValue.type">
+			</cl-radio>
+    </form>
+
+    <form clValidationForm id="form_13" (validChange)="form_13Valid.set($event || false)" [suite]="form_13Suite"
+      class="grid w-full gap-4 px-48" (ngSubmit)="onform_13FormSubmit()" [formValue]="form_13FormValue()"
+      (formValueChange)="setform_13FormValue($event)">
+      <!-- <cl-input id="pipeline_config" name="pipelineconfig" [properties]="pipeline_configProperties" [ngModel]="form_13Vm.formValue.pipelineconfig">
+			</cl-input> -->
+      <textarea id="pipeline_config" name="templatestructure" [ngModel]="form_13Vm.formValue.templatestructure"
+        placeholder="Enter json code here"
+        class="min-h-[18em] bg-black text-white placeholder-white p-4 mt-4 w-full rounded-md "></textarea>
+        <label style="color: red;">{{jsonFormValueError}}</label>
+
+    </form>
+
+    <div id="row_15" class="flex gap-4 w-full flex-row border-t-2 mt-10 justify-end">
+      <cl-button id="saveButton" [properties]="saveButtonProperties"  (click)="saveTemplate()"  >
+      </cl-button>
+    </div>
+  </cl-card>
+</div>
+
+

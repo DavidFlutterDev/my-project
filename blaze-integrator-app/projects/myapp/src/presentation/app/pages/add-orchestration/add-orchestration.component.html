@@ -1,0 +1,167 @@
+<div id="column-03dda3c9-afc1-4436-856e-590d943be324" class="flex w-full flex-col ">
+  <app-breadcrumb [data]="addorchestrationService.breadcrumbData"></app-breadcrumb>
+
+  <div *ngIf="!showDataMapperScreen" class="mb-4">
+    <cl-card id="card0" [properties]="card0Properties">
+      <form clValidationForm id="form_21" [suite]="form_21Suite" #form21="ngForm"
+        class="grid w-full overflow-auto gap-4 grid-cols-1 px-80" [formValue]=" form_21FormValue()"
+        (validChange)="form_21FormValid.set($event)" (errorsChange)="form_21Errors.set($event)"
+        (formValueChange)="setform_21FormValue($event)">
+        <cl-input id="orchestration_name" name="orchestration_name" [properties]="orchestration_nameProperties"
+          [ngModel]="form_21Vm.formValue.orchestration_name">
+        </cl-input>
+        <div id="column-03" class="flex w-full flex-col ">
+          <cl-select id="Orchestration_template" name="Orchestration_template"
+            [properties]="Orchestration_templateProperties" [ngModel]="form_21Vm.formValue.Orchestration_template">
+          </cl-select>
+
+          @if(addorchestrationService.selectedOrchestrationTemplate){
+          <div id="templateTypeLabelRow" class="flex w-full flex-row ">
+            <cl-label id="templateTypeLabel" [properties]="addorchestrationService.templateTypeLabelProperties">
+            </cl-label>
+            <cl-label id="templateTypeValue"
+              [properties]="addorchestrationService.getTemplateTypeValueProperties(addorchestrationService.selectedOrchestrationTemplate?.type)">
+            </cl-label>
+          </div>
+          }
+        </div>
+
+        @if(addorchestrationService.selectedOrchestrationTemplate &&
+        addorchestrationService.selectedOrchestrationTemplate?.type === 'Online')
+        {
+        <cl-input id="noOfInstance" name="noOfInstance" [properties]="addorchestrationService.NoOfInstaceProperties"
+          [ngModel]="form_21Vm.formValue.noOfInstance">
+        </cl-input>
+
+        <!-- <div id="row_12" class="flex gap-4 w-full flex-row  bg-neutral-100 p-4 rounded-md">
+              <cl-icon id="icon6" [properties]="addorchestrationService.icon3Properties">
+              </cl-icon>
+              <cl-label id="label12" [properties]="addorchestrationService.label12Properties">
+              </cl-label>
+          </div> -->
+        }
+
+        <cl-input id="product_code" name="product_code" [properties]="addorchestrationService.productCodeProperties"
+          [ngModel]="form_21Vm.formValue.product_code">
+        </cl-input>
+        <cl-input id="process_code" name="process_code" [properties]="addorchestrationService.processCodeProperties"
+          [ngModel]="form_21Vm.formValue.process_code">
+        </cl-input>
+
+      </form>
+
+      <div class="flex-1"></div>
+      <div id="row_23" class="flex gap-4 w-full flex-row mt-4 justify-end border-t-2">
+        <cl-button id="continueBt" [properties]="continueBtProperties">
+        </cl-button>
+      </div>
+    </cl-card>
+  </div>
+
+
+  <!-- bottom -->
+  <div *ngIf="showDataMapperScreen" id="row_34" class="flex gap-4 w-full flex-row">
+    <div id="column_10" class="gap-4 flex-inital w-2/6">
+      <cl-accordion  id="accordion0" class="orchestration-details-acc" [properties]="accordion0Properties">
+        <cl-expansion-panel>
+          <cl-expansion-panel-header [properties]="addorchestrationService.accordion0Accordion1HeaderProperties"></cl-expansion-panel-header>
+
+          <cl-expansion-panel-content>
+            <div id="column-7b12d4a0-3f31-4dd6-b894-231e5ae686b1" class="flex w-full flex-col">
+              <cl-label id="templateLabel"
+                [properties]="addorchestrationService.getSubHeadingInAccordionProperties('Orchestration template')">
+              </cl-label>
+              <cl-label id="templateValueLabel"
+                [properties]="addorchestrationService.getValueInAccordionProperties(addorchestrationService.getSelectedTemplateValue()?.text)">
+              </cl-label>
+            </div>
+            @if(addorchestrationService.selectedOrchestrationTemplate?.type === 'Online'){
+            <div id="column-7b12d4a0-3f31-4dd6-b894-231e5ae686b1" class="flex w-full flex-col">
+              <cl-label id="NoOfInstanceLabel"
+                [properties]="addorchestrationService.getSubHeadingInAccordionProperties('No. of instances')">
+              </cl-label>
+              <cl-label id="NoOfInstanceValueLabel"
+                [properties]="addorchestrationService.getValueInAccordionProperties(addorchestrationService.formData.noOfInstance)">
+              </cl-label>
+            </div>
+            }
+
+            <div id="column-7b12d4a0-3f31-4dd6-b894-231e5ae686b1" class="flex w-full flex-col">
+              <cl-label id="productCodeLabel"
+                [properties]="addorchestrationService.getSubHeadingInAccordionProperties('Product Code')">
+              </cl-label>
+              <cl-label id="productCodeValueLabel"
+                [properties]="addorchestrationService.getValueInAccordionProperties(addorchestrationService.formData.product_code)">
+              </cl-label>
+            </div>
+
+            <div id="column-7b12d4a0-3f31-4dd6-b894-231e5ae686b1" class="flex w-full flex-col">
+              <cl-label id="processCodeLabel"
+                [properties]="addorchestrationService.getSubHeadingInAccordionProperties('Process Code')">
+              </cl-label>
+              <cl-label id="processCodeValueLabel"
+                [properties]="addorchestrationService.getValueInAccordionProperties(addorchestrationService.formData.process_code)">
+              </cl-label>
+            </div>
+
+
+
+          </cl-expansion-panel-content>
+        </cl-expansion-panel>
+
+      </cl-accordion>
+      <!-- left hand side pipeline list -->
+      @if(addorchestrationService.configSteps.length > 0 ){
+      <cl-card id="card2" [properties]="card2Properties">
+        <div *ngFor="let run of addorchestrationService.configSteps; let i = index">
+          <div id="row_16" [ngClass]="getStepTilesCss(i)" (click)="onClickTemplateTile(run, i)">
+
+            <cl-icon *ngIf="run.pipelineId" id="tickIcon" [properties]="tickIconProperties">
+            </cl-icon>
+            <div *ngIf="!run.pipelineId" [ngClass]="addorchestrationService.getIndexBGProperties(i)">
+              <!-- class="w-5 h-5 rounded-full aspect-square flex items-center justify-center border border-[#2D78E8]"
+                [ngStyle]="{'background-color':orchestrationTemplateData().structure.steps[i - 1]?.pipelineId ? '#2D78E8' : 'transparent'}"> -->
+              <cl-label id="indexLabel" [properties]="addorchestrationService.getIndexLabelProperties(i)">
+              </cl-label>
+            </div>
+            <div id="column_17" class="flex w-full gap-4 flex-col">
+              <cl-label id="label4" [properties]="getLabel4Properties(run.templateName)">
+              </cl-label>
+              <!-- <cl-label id="label5" [properties]="label5Properties">
+                </cl-label> -->
+            </div>
+            <cl-icon id="rightArrow" [properties]="rightArrowProperties">
+            </cl-icon>
+          </div>
+        </div>
+      </cl-card>
+      }
+
+    </div>
+    <div id="column_11" class="flex flex-inital w-full gap-4 flex-col ">
+      <div id="row_12" class="flex gap-4 w-full flex-row  bg-neutral-200 p-4 rounded-md">
+        <cl-icon id="icon3" [properties]="icon3Properties">
+        </cl-icon>
+        <cl-label id="hintText"
+          [properties]="addorchestrationService.getHintTextProperties(this.addorchestrationService.getSelectedTemplateValue()?.text)">
+        </cl-label>
+      </div>
+      <cl-card id="card3" [properties]="card3Properties">
+        @if(dataMapperJson ) {
+        <app-data-mapper [dataMapperJson]="dataMapperJson" (dataMapperJsonUpdated)="dataMapperDataChanged($event)">
+        </app-data-mapper>
+        }
+        @else{
+        <div class="mt-20">
+          No Pipeline json found!!!
+        </div>
+        }
+        <div class="flex-1"></div>
+        <div id="row_23" class="flex gap-4 w-full flex-row justify-end border-t-2">
+          <cl-button id="continueBt" [properties]="continueBtProperties">
+          </cl-button>
+        </div>
+      </cl-card>
+    </div>
+  </div>
+</div>

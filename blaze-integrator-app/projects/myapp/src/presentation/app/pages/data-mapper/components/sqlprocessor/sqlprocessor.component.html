@@ -1,0 +1,209 @@
+<div id="column-b793d87f-dded-403c-87c2-da8add6fec5f" class="flex w-full flex-col p-4">
+  <form clValidationForm id="form_11"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_1Suite"
+    [formValue]="form_1FormValue()" (validChange)="form_1FormValid.set($event)"
+    (errorsChange)="form_1Errors.set($event)" (formValueChange)="setform_1FormValue($event)">
+
+    <div id="column_13" class="grid w-full gap-4 grid-cols-3 p-4">
+      @if(node.label === 'cassandra') {
+      <cl-input id="address" name="address" [properties]="sqlProcessorService.addressProperties"
+        [ngModel]="form_1Vm.formValue.address">
+      </cl-input>
+      <cl-input id="username" name="username" [properties]="sqlProcessorService.userNameProperties"
+        [ngModel]="form_1Vm.formValue.username">
+      </cl-input>
+      <cl-input id="password" name="password" [properties]="sqlProcessorService.passwordProperties"
+        [ngModel]="form_1Vm.formValue.password">
+      </cl-input>
+      }@else{
+      <cl-select id="driver" name="driver" [properties]="sqlProcessorService.driverProperties"
+        [ngModel]="form_1Vm.formValue.driver">>
+      </cl-select>
+      <cl-input id="username" name="username" [properties]="sqlProcessorService.userNameProperties"
+        [ngModel]="form_1Vm.formValue.username">
+      </cl-input>
+      <cl-input id="password" name="password" [properties]="sqlProcessorService.passwordProperties"
+        [ngModel]="form_1Vm.formValue.password">
+      </cl-input>
+      <cl-input id="host" name="hosts" [properties]="sqlProcessorService.hostProperties"
+        [ngModel]="form_1Vm.formValue.hosts">
+      </cl-input>
+      <cl-input id="schema" name="schema" [properties]="sqlProcessorService.schemaProperties"
+        [ngModel]="form_1Vm.formValue.schema">
+      </cl-input>
+      <cl-input id="table" name="table" [properties]="sqlProcessorService.tableProperties"
+        [ngModel]="form_1Vm.formValue.table">
+      </cl-input>
+
+      }
+      @if(node.label === 'sql_raw'|| node.label === 'cassandra') {
+      <cl-input id="query" name="query" [properties]="sqlProcessorService.queryInputProperties"
+        [ngModel]="form_1Vm.formValue.query">
+      </cl-input>
+      }
+    </div>
+
+    @if(node.label === 'sql_select') {
+    <div id="column_13" class="flex w-full gap-4 flex-col p-2 bg-primary-50">
+      <cl-label id="columnsLabelId" [properties]="sqlProcessorService.columnsLabelIdProperties">
+      </cl-label>
+      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+        @for(column of sqlProcessorService.columnsArray; track column; let index = $index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">Column {{index}}</mat-label>
+
+            <input matInput placeholder="Column" [ngModel]="column"
+              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+              (ngModelChange)="columnValueChange($event, index)">
+          </mat-form-field>
+
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteColumn(index)">
+          </mat-icon>
+        </div>
+        }
+
+        <cl-button id="addMoreColumn" [properties]="sqlProcessorService.addMoreColumnProperties">
+        </cl-button>
+      </div>
+    </div>
+    <cl-accordion id="accordion0" [properties]="sqlProcessorService.accordion0Properties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="sqlProcessorService.accordion0WhereHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-fc0e8169-335a-4450-8ae5-75d45f0c38b2" class="flex w-full flex-col">
+            <cl-card id="card5" [properties]="sqlProcessorService.card5Properties">
+
+              <div id="row_30" class="flex w-full flex-row gap-4 border-b-2 border-gray-300">
+                <cl-label id="columLabelId" class="flex w-1/3"
+                  [properties]="sqlProcessorService.columLabelIdProperties">
+                </cl-label>
+                <cl-label id="operatorLabeId" class="flex w-1/3"
+                  [properties]="sqlProcessorService.operatorLabeIdProperties">
+                </cl-label>
+                <cl-label id="field/valueLabelId" class="flex w-1/3"
+                  [properties]="sqlProcessorService.fieldvalueLabelIdProperties">
+                </cl-label>
+                <cl-icon id="icon3" [properties]="sqlProcessorService.icon3Properties">
+                </cl-icon>
+              </div>
+
+              @for(condition of sqlProcessorService.whereConditionArray; track condition; let index = $index) {
+              <div id="row_35" class="flex gap-4 w-full flex-row">
+                <mat-form-field class="flex w-1/3" [floatLabel]="'auto'" [appearance]="'fill'">
+                  <mat-label class="flex items-center">Col {{index}}</mat-label>
+                  <input matInput placeholder="Col" [ngModel]="condition.col"
+                    [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                    (ngModelChange)="onConditionColChange($event, index)" />
+
+                </mat-form-field>
+
+                <mat-form-field class="flex w-1/3" [floatLabel]="'auto'" [appearance]="'fill'">
+                  <mat-label class="flex items-center">Operator {{index}}</mat-label>
+                  <mat-select placeholder="Operator" [ngModel]="condition.operator"
+                    [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                    (selectionChange)="onConditionOperatorChange($event, index)">
+                    @for(operator of sqlProcessorService.operators; track operator){
+                    <mat-option [value]="operator">{{ operator }}</mat-option>
+                    }
+                  </mat-select>
+
+                </mat-form-field>
+
+                <mat-form-field class="flex w-1/3" [floatLabel]="'auto'" [appearance]="'fill'">
+                  <mat-label class="flex items-center">Field {{index}}</mat-label>
+                  <input matInput placeholder="Field" [ngModel]="condition.value"
+                    [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+                    (ngModelChange)="onConditionFieldChange($event, index)" />
+
+                </mat-form-field>
+                <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+                  [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteCondition(index)">
+                </mat-icon>
+
+              </div>
+              }
+
+              <div id="row_47" class="flex gap-4 w-full flex-row bg-primary-50">
+                <cl-button id="addMoreConditionButton"
+                  [properties]="sqlProcessorService.addMoreConditionButtonProperties">
+                </cl-button>
+              </div>
+            </cl-card>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+    </cl-accordion>
+    }
+    @else if(node.label === 'sql_insert' || node.label === 'sql_update') {
+    <div id="column_58" class="flex w-full gap-4 flex-col bg-primary-50 p-4">
+      <cl-label id="MappingLabel" [properties]="sqlProcessorService.columnsFieldsMapLabelProperties">
+      </cl-label>
+
+      @for(colMapping of sqlProcessorService.colFieldMappingArray; track colMapping; let index = $index) {
+      <div id="row_13" class="flex gap-4 w-full flex-row items-center">
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Column {{index}}</mat-label>
+          <input matInput placeholder="Column" [ngModel]="colMapping.column"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+            (ngModelChange)="onColMapColumnChange($event, index)" required />
+
+          <mat-error>Mapping column is required</mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Field {{index}}</mat-label>
+          <input matInput placeholder="Field" [ngModel]="colMapping.field"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onColMapFieldChange($event, index)"
+            required />
+
+          <mat-error>Mapping field is required</mat-error>
+        </mat-form-field>
+        @if(sqlProcessorService.colFieldMappingArray.length > 1) {
+        <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+          [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteColFieldMapping(index)">
+        </mat-icon>
+        }
+      </div>
+      }
+
+      <cl-button id="addMoreMappingButton" [properties]="sqlProcessorService.addMoreColMappingProperties">
+      </cl-button>
+    </div>
+    }
+    @else if(node.label === 'sql_raw' || node.label === 'cassandra') {
+    <div id="column_18" class="flex w-full gap-4 flex-col p-2 bg-primary-50">
+      <cl-label id="allowedorigins" [properties]="sqlProcessorService.argsMappingLabelProperties">
+      </cl-label>
+
+      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+        @for(args of sqlProcessorService.argsMappingArray; track args; let index =$index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">Arg {{index}}</mat-label>
+            <input matInput placeholder="Arg" [ngModel]="args" [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+              (ngModelChange)="argMappingChange($event, index)">
+          </mat-form-field>
+
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteMapping(index)">
+          </mat-icon>
+        </div>
+        }
+
+        <cl-button id="addMoreOrigins" [properties]="sqlProcessorService.addMoreArgsMappingProperties">
+        </cl-button>
+      </div>
+    </div>
+    }
+  </form>
+
+  <div id="row_30" class="flex gap-4 w-full flex-row mt-5 justify-end bg-neutral-50 py-4">
+    <cl-button id="saveButtonId" [properties]="sqlProcessorService.saveButtonIdProperties">
+    </cl-button>
+  </div>
+</div>

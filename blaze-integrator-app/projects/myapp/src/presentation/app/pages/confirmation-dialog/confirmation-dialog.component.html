@@ -1,0 +1,14 @@
+<div class="dialog-header">
+  <!-- <mat-icon color="warn">info</mat-icon> -->
+  <h2 mat-dialog-title>Delete</h2>
+</div>
+
+<div mat-dialog-content class="dialog-content">
+  <p><strong>Are you sure you want to delete the {{ data.itemName }}?</strong></p>
+  <p>The selected action will delete the {{ data.itemName }} permanently.</p>
+</div>
+
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+  <button mat-button color="warn" (click)="onConfirm()" class="confirm-button">Confirm</button>
+</div>

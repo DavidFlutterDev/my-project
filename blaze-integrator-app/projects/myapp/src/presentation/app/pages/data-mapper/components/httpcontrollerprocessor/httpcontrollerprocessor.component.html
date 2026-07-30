@@ -1,0 +1,52 @@
+<div id="column-73ddf895-afd4-4cdc-98eb-c2f11ed1920f" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_2"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(50vw)]" [suite]="form_2Suite"
+    [formValue]="form_2FormValue()" (validChange)="form_2FormValid.set($event)"
+    (errorsChange)="form_2Errors.set($event)" (formValueChange)="setform_2FormValue($event)">
+
+    <cl-label id="services" [properties]="httpControllerProcessorService.servicesProperties">
+    </cl-label>
+
+    @for(service of httpControllerProcessorService.services; track service; let index = $index) {
+    <div id="row_35" class="flex gap-4 w-full flex-row">
+
+      <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+        <mat-label class="flex items-center">Method {{index}}</mat-label>
+        <mat-select placeholder="Operator" [ngModel]="service.http_method" [ngModelOptions]="{standalone: true}"
+          (selectionChange)="onServiceMethodChange($event, index)" required>
+          @for(operator of httpControllerProcessorService.methods; track operator){
+          <mat-option [value]="operator">{{ operator }}</mat-option>
+          }
+        </mat-select>
+
+        <mat-error>HTTP method is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+        <mat-label class="flex items-center">Path {{index}}</mat-label>
+        <input matInput placeholder="Path" [ngModel]="service.path"
+          [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onServicePathChange($event, index)"
+          required />
+
+        <mat-error>Path is required</mat-error>
+      </mat-form-field>
+
+      @if(httpControllerProcessorService.services.length > 1) {
+      <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center" [svgIcon]="'fss_icons:profile-delete'"
+        (click)="onDeleteServiceConfig(index)">
+      </mat-icon>
+      }
+    </div>
+    }
+
+    <cl-button id="addMoreServicesButton" [properties]="httpControllerProcessorService.addMoreServicesButtonProperties">
+    </cl-button>
+
+  </form>
+
+  <div id="row_5" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="saveButton" [properties]="httpControllerProcessorService.saveButtonProperties">
+    </cl-button>
+  </div>
+</div>

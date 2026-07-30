@@ -1,0 +1,132 @@
+<div id="column-91820a3b-273e-4098-8936-74ae58fb5be7" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_31"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_31Suite"
+    [formValue]="form_31FormValue()" (validChange)="form_31FormValid.set($event)"
+    (errorsChange)="form_31Errors.set($event)" (formValueChange)="setform_31FormValue($event)">
+
+    <div id="row-1" class="grid w-full grid-cols-3 gap-4">
+      <cl-input id="address" name="address" [properties]="sftpProcessorService.addressProperties"
+        [ngModel]="form_31Vm.formValue.address">
+      </cl-input>
+
+      @if(node.category === 'Output'){
+      <cl-input id="pathId" name="path" [properties]="sftpProcessorService.pathIdProperties"
+        [ngModel]="form_31Vm.formValue.path">
+      </cl-input>
+      <cl-select id="codec" name="codec" [properties]="sftpProcessorService.codecProperties"
+        [ngModel]="form_31Vm.formValue.codec">
+      </cl-select>
+      }
+    </div>
+
+    <cl-accordion id="credentialsId" [properties]="sftpProcessorService.credentialsIdProperties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="sftpProcessorService.credentialsIdCredentialsHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+
+          <form clValidationForm id="form_9"
+            class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden" [suite]="form_32Suite"
+            [formValue]="form_31FormValue().credentials" (validChange)="form_32FormValid.set($event)"
+            (formValueChange)="setform_32FormValue($event)">
+
+            <div id="grid-64cafbca-7b26-46a2-9042-4ee3677bed4b" class="grid w-full gap-4 grid-cols-2">
+              <cl-input id="username" name="username" [properties]="sftpProcessorService.userNameProperties"
+                [ngModel]="form_31Vm.formValue.credentials?.username">
+              </cl-input>
+              <cl-input id="password" name="password" [properties]="sftpProcessorService.passwordProperties"
+                [ngModel]="form_31Vm.formValue.credentials?.password">
+              </cl-input>
+            </div>
+          </form>
+
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+    </cl-accordion>
+
+    @if(node.category === 'Input'){
+    <div id="column_40" class="flex w-full gap-4 flex-col p-2 bg-primary-50">
+      <cl-label id="paths" [properties]="sftpProcessorService.pathsProperties">
+      </cl-label>
+
+      <div id="row-2" class="grid w-full grid-cols-2 gap-4">
+        @for(path of sftpProcessorService.pathList; track path; let index = $index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">path {{index}}</mat-label>
+
+            <input matInput placeholder="path" [ngModel]="path" id=`path${index}`
+              [ngModelOptions]="{updateOn: 'blur', standalone: true, name:'path'}"
+              (ngModelChange)="pathValueChange($event, index)" required />
+
+            <mat-error>Path is required</mat-error>
+          </mat-form-field>
+          @if(sftpProcessorService.pathList.length > 1) {
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeletePath(index)">
+          </mat-icon>
+          }
+        </div>
+        }
+
+        <cl-button id="addMorePaths" [properties]="sftpProcessorService.addMorePathsProperties">
+        </cl-button>
+      </div>
+
+    </div>
+
+    <cl-radio id="deleteOnfinish" name="delete_on_finish" [ngModel]="form_31Vm.formValue.delete_on_finish"
+      [properties]="sftpProcessorService.deleteOnfinishProperties">
+    </cl-radio>
+
+    <cl-accordion id="accordion1" [properties]="sftpProcessorService.accordion1Properties">
+      <!-- <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="sftpProcessorService.accordion1WatcherHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+
+          <form clValidationForm id="form_9"
+            class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]"
+            [suite]="form_33Suite" [formValue]="form_31FormValue().watcher"
+            (formValueChange)="setform_33FormValue($event)">
+
+            <div id="row-2" class="grid w-full grid-cols-3 gap-4">
+              <cl-radio id="watcher" name="enabled" [properties]="sftpProcessorService.watcherProperties"
+                [ngModel]="form_31Vm.formValue.watcher?.enabled">
+              </cl-radio>
+              <cl-input id="minimumAge" name="minimum_age" [properties]="sftpProcessorService.minimumAgeProperties"
+                [ngModel]="form_31Vm.formValue.watcher?.minimum_age">
+              </cl-input>
+              <cl-input id="pollInterval" name="poll_interval" [properties]="sftpProcessorService.pollIntervalProperties"
+                [ngModel]="form_31Vm.formValue.watcher?.poll_interval">
+              </cl-input>
+            </div>
+          </form>
+
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>  -->
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="sftpProcessorService.accordion1ScannerHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="row-3" class="grid w-full grid-cols-3 gap-4">
+            <cl-select id="scannerType" name="scannerType" [properties]="sftpProcessorService.scannerTypeProperties"
+              [ngModel]="form_31Vm.formValue.scannerType">
+            </cl-select>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+
+    </cl-accordion>
+    }
+
+  </form>
+  <div id="row_23" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="save" [properties]="sftpProcessorService.saveButtonProperties">
+    </cl-button>
+  </div>
+</div>

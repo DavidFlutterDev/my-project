@@ -1,0 +1,70 @@
+.zoom-container {
+  @apply flex flex-col p-2 size-auto absolute overflow-auto;
+
+  .data-mapper-container {
+    @apply flex mt-3 select-none size-auto relative overflow-hidden origin-top-left;
+
+    .section {
+      @apply p-8 gap-2 flex flex-col border-none;
+
+      .node {
+        @apply z-10 flex bg-white rounded-lg items-center justify-between drop-shadow-md w-72 border-2;
+
+        &.input {
+          @apply border-blue-600;
+        }
+
+        &.output {
+          @apply border-green-600;
+        }
+
+        &.processor {
+          @apply border-yellow-500;
+        }
+
+        &.selected {
+          @apply border-2;
+        }
+
+        .icon {
+          @apply flex icon-size-5;
+        }
+
+        .label {
+          @apply text-base text-gray-700;
+        }
+
+        .input-left,
+        .output-right {
+          @apply size-1 bg-gray-800 absolute rounded-full;
+        }
+
+        .input-left {
+          @apply -left-1;
+        }
+
+        .output-right {
+          @apply -right-1;
+        }
+
+        .input-top,
+        .output-bottom {
+          @apply size-1 rounded-full bg-gray-800 absolute;
+        }
+
+        .input-top {
+          @apply -top-1;
+        }
+
+        .output-bottom {
+          @apply -bottom-1;
+        }
+      }
+    }
+  }
+
+  /* SVG Line Styles */
+  svg.line-connector {
+    @apply top-0 left-0 size-full absolute pointer-events-none overflow-auto;
+  }
+}

@@ -1,0 +1,61 @@
+<div id="page_10" class="flex w-full flex-col ">
+
+  <form clValidationForm id="form_15" [suite]="form_15Suite"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]"
+    [formValue]="form_15FormValue()" (validChange)="form_15FormValid.set($event)"
+    (errorsChange)="form_15Errors.set($event)" (formValueChange)="setform_15FormValue($event)">
+
+    <cl-label id="fields" [properties]="multipartDataformProcessorService.fieldsProperties">
+    </cl-label>
+
+    <div id="col_45" class="flex gap-4 w-full flex-col bg-primary-50 p-4">
+
+      @for(field of multipartDataformProcessorService.fields; track field; let index = $index) {
+      <div id="row_43" class="flex gap-4 w-full flex-row items-center">
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Name {{index}}</mat-label>
+          <input matInput placeholder="name" [ngModel]="field.name"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onFieldNameChange($event, index)"
+            required />
+
+          <mat-error>Field name is required</mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Content Type {{index}}</mat-label>
+          <input matInput placeholder="Content Type" [ngModel]="field.contentType"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+            (ngModelChange)="onFieldContentTypeChange($event, index)" required />
+
+          <mat-error>Field content type is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Data {{index}}</mat-label>
+          <input matInput placeholder="Data" [ngModel]="field.data"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onFieldDataChange($event, index)"
+            required />
+
+          <mat-error>Field data is required</mat-error>
+        </mat-form-field>
+
+        @if(multipartDataformProcessorService.fields.length > 1) {
+        <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+          [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteField(index)">
+        </mat-icon>
+        }
+      </div>
+      }
+      <cl-button id="addMoreFieldsButton"
+        [properties]="multipartDataformProcessorService.addMoreFieldsButtonProperties">
+      </cl-button>
+    </div>
+
+
+    <div id="row_14" class="flex gap-4 w-full flex-row justify-end mt-10">
+      <cl-button id="button18" [properties]="multipartDataformProcessorService.button18Properties">
+      </cl-button>
+    </div>
+  </form>
+</div>

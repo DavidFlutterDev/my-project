@@ -1,0 +1,17 @@
+<div id="column-b63e89c3-b725-4af0-83fa-1349e8d74a16" class="flex w-full flex-col ">
+	<cl-card id="card0" [properties]="card0Properties">
+		<form clValidationForm id="form_6" [suite]="form_6Suite" class="grid w-full gap-4 grid-cols-2" (ngSubmit)="onform_6FormSubmit()"
+		        [formValue]="form_6FormValue()" (formValueChange)="setform_6FormValue($event)" >
+			<cl-input id="pipelineName" name="componentname" [properties]="pipelineNameProperties" [ngModel]="form_6Vm.formValue.componentname">
+			</cl-input>
+			<cl-select id="template" name="componenttype" [properties]="templateProperties" [ngModel]="form_6Vm.formValue.componenttype">
+			</cl-select>
+		</form>
+		<cl-card id="pipelineCard" [properties]="pipelineCardProperties">
+		</cl-card>
+		<div id="row_9" class="flex gap-4 w-full flex-row justify-end border-t-2 mt-10">
+			<cl-button id="proceedButton" [properties]="proceedButtonProperties">
+			</cl-button>
+		</div>
+	</cl-card>
+</div>

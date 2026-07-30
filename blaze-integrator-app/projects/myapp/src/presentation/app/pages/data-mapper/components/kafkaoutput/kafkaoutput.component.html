@@ -1,0 +1,73 @@
+<div id="column-2f102bdf-4abb-463b-bc14-1758536567b0" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_16"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_16Suite"
+    [formValue]="form_16FormValue()" (validChange)="form_16FormValid.set($event)"
+    (errorsChange)="form_16Errors.set($event)" (formValueChange)="setform_16FormValue($event)">
+
+    <div id="column_12" class="flex w-full gap-4 flex-col p-2 bg-primary-50">
+      <cl-label id="addressLabel" [properties]="kafkaOutputService.addressLabelProperties">
+      </cl-label>
+      <div id="grid_14" class="grid w-full gap-4 grid-cols-2">
+
+        @for(address of kafkaOutputService.addressList; track address; let index = $index) {
+        <div id="row-2" class="flex w-full flex-row gap-4">
+          <mat-form-field class="w-full" [floatLabel]="'auto'" [appearance]="'fill'">
+            <mat-label class="flex items-center">Address {{index}}</mat-label>
+
+            <input matInput placeholder="Address" [ngModel]="address"
+              [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+              (ngModelChange)="addressValueChange($event, index)" required />
+
+            <mat-error>Address is required</mat-error>
+          </mat-form-field>
+          @if(kafkaOutputService.addressList.length > 1) {
+          <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+            [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteAddress(index)">
+          </mat-icon>
+          }
+        </div>
+        }
+        <cl-button id="addMoreAddressesButton" [properties]="kafkaOutputService.addMoreAddressesButtonProperties">
+        </cl-button>
+      </div>
+    </div>
+
+    <div id="grid_6" class="grid w-full gap-4 grid-cols-3">
+      <cl-input id="topic" name="topic" [properties]="kafkaOutputService.topicProperties"
+        [ngModel]="form_16Vm.formValue.topic">
+      </cl-input>
+      <cl-input id="clientId" name="client_id" [properties]="kafkaOutputService.clientIdProperties"
+        [ngModel]="form_16Vm.formValue.client_id">
+      </cl-input>
+    </div>
+
+    <cl-accordion id="accordion0" [properties]="kafkaOutputService.accordion0Properties">
+      <cl-expansion-panel>
+        <cl-expansion-panel-header [properties]="kafkaOutputService.accordion0BatchingHeaderProperties">
+        </cl-expansion-panel-header>
+
+        <cl-expansion-panel-content>
+          <div id="column-bea5a071-11d7-4158-9d5d-d7394de1c2eb" class="flex w-full flex-col">
+            <div id="grid_11" class="grid w-full gap-4 grid-cols-3">
+              <cl-input id="count" name="count" [properties]="kafkaOutputService.countProperties"
+                [ngModel]="form_16Vm.formValue.count">
+              </cl-input>
+              <!-- <cl-input id="byteSize" name="byte_size" [properties]="kafkaOutputService.byteSizeProperties"
+                [ngModel]="form_16Vm.formValue.byte_size">
+              </cl-input> -->
+              <cl-input id="period" name="period" [properties]="kafkaOutputService.periodProperties"
+                [ngModel]="form_16Vm.formValue.period">
+              </cl-input>
+            </div>
+          </div>
+        </cl-expansion-panel-content>
+      </cl-expansion-panel>
+
+    </cl-accordion>
+  </form>
+  <div id="row_15" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="button4" [properties]="kafkaOutputService.saveButtonProperties">
+    </cl-button>
+  </div>
+</div>

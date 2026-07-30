@@ -1,0 +1,27 @@
+<div id="column-ab8fc619-114f-4f39-9856-29649b797154" class="flex w-full flex-col ">
+  <app-breadcrumb [data]="breadcrumbData"></app-breadcrumb>
+
+  @if(!dataGrid8Properties.data || (dataGrid8Properties.data && dataGrid8Properties.data.length === 0)) {
+  <cl-card id="card2" [properties]="card2Properties">
+    <div id="column_10" class="flex w-full gap-4 flex-col items-center">
+      <cl-icon id="icon0" [properties]="icon0Properties">
+      </cl-icon>
+      <cl-label id="noDataText" [properties]="noDataTextProperties">
+      </cl-label>
+      <cl-button id="Add new" [properties]="addNewProperties">
+      </cl-button>
+    </div>
+  </cl-card>
+  }
+
+  @if(dataGrid8Properties.data && dataGrid8Properties.data.length > 0) {
+  <cl-card id="listCard" [properties]="listCardProperties">
+    <cl-data-grid id="dataGrid8" class="overflow-auto" [data]="dataGrid8Properties.data!"
+      [properties]="dataGrid8Properties" [showLoading]="dataGrid8Properties.showLoading!"
+      [totalRecords]="dataGrid8Properties.totalRecords" [matSortActive]="dataGrid8Properties.matSortActive!"
+      [matSortDirection]="dataGrid8Properties.matSortDirection!">
+    </cl-data-grid>
+  </cl-card>
+  }
+
+</div>

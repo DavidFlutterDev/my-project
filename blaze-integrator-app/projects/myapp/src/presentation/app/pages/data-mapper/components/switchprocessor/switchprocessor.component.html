@@ -1,0 +1,34 @@
+<div id="column-4085e9b0-6aaa-4859-9474-e64c562ed7ee" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_0"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(50vw)]" [suite]="form_0Suite"
+    [formValue]="form_0FormValue()" (validChange)="form_0FormValid.set($event)"
+    (errorsChange)="form_0Errors.set($event)" (formValueChange)="setform_0FormValue($event)">
+
+    @for(condition of switchProcessorService.conditions; track condition; let index = $index) {
+    <div id="row_35" class="flex gap-4 w-full flex-row">
+      <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+        <mat-label class="flex items-center">Check {{index}}</mat-label>
+        <input matInput placeholder="check" [ngModel]="condition.label"
+          [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onCheckValueChange($event, index)"
+          required />
+
+        <mat-error>Check is required</mat-error>
+      </mat-form-field>
+      @if(switchProcessorService.conditions.length > 1) {
+      <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center" [svgIcon]="'fss_icons:profile-delete'"
+        (click)="onDeleteCheck(index)">
+      </mat-icon>
+      }
+    </div>
+    }
+
+    <cl-button id="addMoreCheck" [properties]="switchProcessorService.addMoreCheckProperties">
+    </cl-button>
+  </form>
+
+  <div id="row_5" class="flex gap-4 w-full flex-row mt-5 justify-end">
+    <cl-button id="button7" [properties]="switchProcessorService.button7Properties">
+    </cl-button>
+  </div>
+</div>

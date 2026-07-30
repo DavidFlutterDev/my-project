@@ -1,0 +1,45 @@
+<div id="column-eeb0d6b1-acbf-45ae-b76b-f77b191f62d8" class="flex w-full flex-col ">
+  @if(!hideVerticalForm){
+    <cl-card id="card0" [properties]="card0Properties" [hidden]="">
+      <form clValidationForm id="form_1" (validChange)="form_1FormValid.set($event || false)" [suite]="form_1Suite"
+        class="grid w-full gap-4 px-80 grid-cols-1 items-center" [formValue]="form_1FormValue()"
+        (errorsChange)="form_1Errors.set($event)" (formValueChange)="setform_1FormValue($event)">
+        <cl-input id="input1" name="pipelinename" [properties]="input1Properties"
+          [ngModel]="form_1Vm.formValue.pipelinename">
+        </cl-input>
+        <cl-select id="templateDropdown" name="templateid" [properties]="templateDropdownProperties"
+          [ngModel]="form_1Vm.formValue.templateid">
+        </cl-select>
+      </form>
+      <div class="flex-1"></div>
+
+      <div id="row_3" class="flex w-full h-14 flex-row border-t-2 relative">
+        <cl-button id="continueButton" [properties]="continueButtonProperties" (click)="onTapContinue()">
+        </cl-button>
+      </div>
+    </cl-card>
+  }
+
+  @if(hideVerticalForm) {
+    <cl-card id="card0" [properties]="card0Properties">
+      <form clValidationForm id="form_1" (validChange)="form_1FormValid.set($event || false)" [suite]="form_1Suite"
+        class="grid w-full gap-4 grid-cols-2 items-baseline" [formValue]="form_1FormValue()"
+        (errorsChange)="form_1Errors.set($event)" (formValueChange)="setform_1FormValue($event)">
+        <cl-input id="input1" name="pipelinename" [properties]="input1Properties"
+          [ngModel]="form_1Vm.formValue.pipelinename">
+        </cl-input>
+        <cl-select id="templateDropdown" name="templateid" [properties]="templateDropdownProperties"
+          [ngModel]="form_1Vm.formValue.templateid">
+        </cl-select>
+      </form>
+
+      <app-data-mapper [dataMapperJson]="dataPipeline" [bodyCssClasses]="'bg-gray-100'"></app-data-mapper>
+
+      <div id="row_3" class="flex w-full h-14 flex-row border-t-2 relative">
+        <cl-button id="continueButton" [properties]="continueButtonProperties" (click)="onTapProceed()">
+        </cl-button>
+      </div>
+    </cl-card>
+  }
+
+</div>

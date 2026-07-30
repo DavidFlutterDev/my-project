@@ -1,0 +1,28 @@
+<div class="flex p-2 w-72 items-center justify-between {{cssClasses}}">
+
+  <div class="flex w-full gap-3 items-center" (click)="onNodeClick()">
+    <!-- <mat-icon class="icon">{{ node.icon }}</mat-icon> -->
+    <mat-icon class="cursor-pointer mt-1 text-neutral-600 font-bold icon-size-6 float-right" [svgIcon]="node.icon!">
+    </mat-icon>
+    <div class=" w-full label">{{ getFormattedLabel(node.label!) }}</div>
+  </div>
+
+  <div class="flex gap-2 items-end">
+    @if (!node.isDataValid) {
+    <mat-icon [title]="'Some of the Fields are missing'" class="cursor-pointer text-warn icon-size-5"
+      [svgIcon]="'heroicons_outline:exclamation-circle'" (click)="onShowErrors()">
+    </mat-icon>
+    }
+
+    @if (showAddIcon) {
+    <mat-icon class="cursor-pointer text-primary icon-size-5" [svgIcon]="'heroicons_outline:plus-circle'"
+      (click)="onAdd()">
+    </mat-icon>
+    }
+    @if (showDeleteIcon) {
+    <mat-icon class="cursor-pointer text-warn icon-size-5" [svgIcon]="'heroicons_outline:trash'" (click)="onDelete()">
+    </mat-icon>
+    }
+
+  </div>
+</div>

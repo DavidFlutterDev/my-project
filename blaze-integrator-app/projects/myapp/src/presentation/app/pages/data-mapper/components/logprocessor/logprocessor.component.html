@@ -1,0 +1,49 @@
+<div id="column-6bc2aa77-7f5b-4800-a8a2-05374f7771bb" class="flex w-full flex-col p-4">
+  <form clValidationForm id="form_54"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]" [suite]="form_54Suite"
+    [formValue]="form_54FormValue()" (validChange)="form_54FormValid.set($event)"
+    (errorsChange)="form_54Errors.set($event)" (formValueChange)="setform_54FormValue($event)">
+
+    <div id="row_1" class="flex w-full gap-4 flex-row p-4">
+      <cl-select id="level" class="flex w-1/2" name="level" [properties]="logProcessorService.levelProperties"
+        [ngModel]="form_54Vm.formValue.level">
+      </cl-select>
+      <cl-input id="messageInputId" class="flex w-1/2" name="message"
+        [properties]="logProcessorService.messageInputIdProperties" [ngModel]="form_54Vm.formValue.message">
+      </cl-input>
+    </div>
+
+    <div id="column_58" class="flex w-full gap-4 flex-col bg-primary-50 p-4">
+      <cl-label id="MappingLabel" [properties]="logProcessorService.MappingLabelProperties">
+      </cl-label>
+
+      @for(mapping of logProcessorService.mappingArray; track mapping; let index = $index) {
+      <div id="row_13" class="flex gap-4 w-full flex-row items-center">
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Key {{index}}</mat-label>
+          <input matInput placeholder="Key" [ngModel]="mapping.key"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onKeyValueChange($event, index)">
+        </mat-form-field>
+
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Field {{index}}</mat-label>
+          <input matInput placeholder="Field" [ngModel]="mapping.field"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onFieldValueChange($event, index)">
+        </mat-form-field>
+
+        <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+          [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteMapping(index)">
+        </mat-icon>
+      </div>
+      }
+
+      <cl-button id="addMoreMappingButton" [properties]="logProcessorService.addMoreMappingButtonProperties">
+      </cl-button>
+    </div>
+
+    <div id="row_7" class="flex gap-4 w-full flex-row justify-end mt-10">
+      <cl-button id="saveButton" [properties]="logProcessorService.saveButtonProperties">
+      </cl-button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,32 @@
+<div class="flex-inital h-full">
+
+  <cl-card id="previewCard" class="h-full" [properties]="previewCardProperties">
+    <div id="row-8acfc776-19a4-4071-a290-3fd46aa1bc24"
+      class="flex gap-4 w-full flex-row justify-between items-center border-b-2 pb-2">
+      <div id="row-8baf8ccd-3a4a-4b83-ba59-4303458cba06" class="flex gap-2 flex-row items-center">
+        <cl-icon id="eyeIcon" [properties]="eyeIconProperties">
+        </cl-icon>
+        <cl-label id="preview" [properties]="previewProperties">
+        </cl-label>
+      </div>
+      <div id="row-8baf8ccd-3a4a-4b83-ba59-4303458cba06" class="flex gap-4 flex-row items-center">
+        <div id="row-924f2524-4ef0-4182-bb3b-0e9bbdabb0d6" class="flex gap-4 w-full flex-row ">
+          <cl-icon id="close" [properties]="closeProperties">
+          </cl-icon>
+        </div>
+      </div>
+    </div>
+    <div id="row-8acfc776-19a4-4071-a290-3fd46aa1bc24"
+      class="flex gap-4 w-full flex-row justify-end items-center mb-2 mt-2">
+
+      <div id="row-8baf8ccd-3a4a-4b83-ba59-4303458cba06" class="flex gap-4 flex-row items-center">
+        <cl-icon id="zoomIn" [properties]="zoomInProperties">
+        </cl-icon>
+        <cl-icon id="zoomOut" [properties]="zoomOutProperties">
+        </cl-icon>
+
+      </div>
+    </div>
+    <cl-code-view id="codeView" [properties]="codeViewProperties" code="codeViewProperties.code"></cl-code-view>
+  </cl-card>
+</div>

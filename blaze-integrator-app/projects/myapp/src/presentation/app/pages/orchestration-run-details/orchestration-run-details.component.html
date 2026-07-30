@@ -1,0 +1,93 @@
+<div id="mainCol" class="flex w-full flex-col bg-neutral-100 h-screen ">
+
+
+  <div id="row_18"
+    class="fixed-header flex w-full flex-row bg-primary-950 p-4 border-t-4 border-cyan-200 border-cyan-300 border-l-2">
+    <div id="column_19" class="flex w-full gap-0 flex-col">
+      <cl-label id="staticTitle" [properties]="staticTitleProperties">
+      </cl-label>
+      <cl-label id="dynamicTitle" [properties]="dynamicTitleProperties">
+      </cl-label>
+    </div>
+    <!-- <cl-icon id="closeIcon" class="close-icon" [ngStyle]="{'color': '#FFFFFF'}" [properties]="closeIconProperties"></cl-icon> -->
+    <button (click)="orchestrationrundetailsService.dialog.closeAll()">
+      <img src="./assets/images/pages/common/close-circle.png" style="width: 24px; height: 24px;" alt="close-icon">
+    </button>
+
+  </div>
+
+  <div id="column_23" class="flex w-full gap-4 flex-col  pt-24 pb-2 px-4">
+    <div *ngIf="orchestrationRun !== undefined">
+      <cl-card id="card0" [properties]="card0Properties">
+        <div id="grid_30" class="grid w-full gap-4 grid-cols-2">
+          <div id="column_19" class=commonColumnClass>
+            <cl-label id="label2" [properties]="titleLabelTileProperties('Trigger status')">
+            </cl-label>
+            <cl-label id="label3" [properties]="valueLabelTileProperties( orchestrationRun.triggerStatus ??'')">
+            </cl-label>
+          </div>
+          <div id="column_23" class=commonColumnClass>
+            <cl-label id="label4" [properties]="titleLabelTileProperties('Trigger status updated on')">
+            </cl-label>
+            <cl-label id="label5" [properties]="valueLabelTileProperties(orchestrationRun.triggerStatusUpdatedOn??'')">
+            </cl-label>
+          </div>
+          <div id="column_19" class=commonColumnClass>
+            <cl-label id="label2" [properties]="titleLabelTileProperties('Execution status')">
+            </cl-label>
+            <cl-label id="label3" [properties]="valueLabelTileProperties(orchestrationRun.executionStatus??'')">
+            </cl-label>
+          </div>
+          <div id="column_23" class=commonColumnClass>
+            <cl-label id="label4" [properties]="titleLabelTileProperties('Execution status updated on')">
+            </cl-label>
+            <cl-label id="label5"
+              [properties]="valueLabelTileProperties(orchestrationRun.executionStatusUpdatedOn??'')">
+            </cl-label>
+          </div>
+        </div>
+      </cl-card>
+    </div>
+    <div *ngIf="runsList.length !== 0">
+
+      <cl-card id="card1" [properties]="card1Properties">
+        <div id="row_32" class="flex gap-4 w-full flex-row border-b-2 ">
+          <cl-label id="label6" [properties]="label6Properties">
+          </cl-label>
+        </div>
+        <div *ngFor="let run of runsList">
+          <cl-label id="label7" [properties]="subHeadingProperties( run.pipelineName)">
+          </cl-label>
+          <div id="grid_34" class="grid w-full gap-4 grid-cols-2 mb-2">
+            <div id="column_28" class=commonColumnClass>
+              <cl-label id="label8" [properties]="titleLabelTileProperties('Pipeline runs id')"></cl-label>
+              <cl-label id="label9" [properties]="valueLabelTileProperties(run.pipelineRunsId)"> </cl-label>
+            </div>
+
+            <div id="column_28" class=commonColumnClass>
+              <cl-label id="label8" [properties]="titleLabelTileProperties('Trigger status')"></cl-label>
+              <cl-label id="label9" [properties]="valueLabelTileProperties(run.triggerStatus)"> </cl-label>
+            </div>
+
+            <div id="column_28" class=commonColumnClass>
+              <cl-label id="label8" [properties]="titleLabelTileProperties('Trigger status updated on')"></cl-label>
+              <cl-label id="label9" [properties]="valueLabelTileProperties(run.triggerStatusUpdatedOn)"> </cl-label>
+            </div>
+
+            <div id="column_28" class=commonColumnClass>
+              <cl-label id="label8" [properties]="titleLabelTileProperties('Execution status')"></cl-label>
+              <cl-label id="label9" [properties]="valueLabelTileProperties(run.executionStatus)"> </cl-label>
+            </div>
+
+            <div id="column_28" class=commonColumnClass>
+              <cl-label id="label8" [properties]="titleLabelTileProperties('Execution status updated on')"></cl-label>
+              <cl-label id="label9" [properties]="valueLabelTileProperties(run.executionStatusUpdatedOn)"> </cl-label>
+            </div>
+          </div>
+
+
+        </div>
+      </cl-card>
+    </div>
+  </div>
+</div>

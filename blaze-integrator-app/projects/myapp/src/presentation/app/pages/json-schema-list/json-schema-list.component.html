@@ -1,0 +1,26 @@
+<div id="column_999997" class="flex w-full flex-col ">
+  <app-breadcrumb [data]="jsonschemalistService.breadcrumbData"></app-breadcrumb>
+
+	<cl-card id="noDataCard" [properties]="noDataCardProperties" [hidden]="isSchemasDataAvailable" >
+		<div id="column_7" class="flex w-full gap-4 flex-col items-center">
+			<cl-icon id="noDataIcon" [properties]="noDataIconProperties">
+			</cl-icon>
+			<cl-label id="noDataLabel" [properties]="noDataLabelProperties">
+			</cl-label>
+			<cl-button id="AddButton" [properties]="AddButtonProperties">
+			</cl-button>
+		</div>
+	</cl-card>
+	<cl-card id="dataCard" [properties]="dataCardProperties" [hidden]="!isSchemasDataAvailable">
+		<cl-data-grid
+		    id="dataGrid2"
+		    class="overflow-auto"
+		    [data]="dataGrid2Properties.data!"
+		    [properties]="dataGrid2Properties"
+		    [showLoading]="dataGrid2Properties.showLoading!"
+		    [totalRecords]="dataGrid2Properties.totalRecords"
+		    [matSortActive]="dataGrid2Properties.matSortActive!"
+		    [matSortDirection]="dataGrid2Properties.matSortDirection!">
+		</cl-data-grid>
+	</cl-card>
+</div>

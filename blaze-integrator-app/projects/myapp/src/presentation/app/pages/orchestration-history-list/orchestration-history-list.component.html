@@ -1,0 +1,51 @@
+<div id="column-7e80ffce-8176-4834-b501-d381641e90ff" class="flex w-full flex-col ">
+
+	<div id="row_26" class="flex gap-4 w-full flex-row mb-2">
+      <app-breadcrumb [data]="orchestrationhistorylistService.breadcrumbData"></app-breadcrumb>
+    <div id="row_26" class="flex gap-4 w-full flex-row justify-end mb-2">
+      <cl-button id="editBt" [properties]="editBtProperties">
+      </cl-button>
+      <cl-button id="button3" [properties]="deleteButtonProperties">
+      </cl-button>
+    </div>
+  </div>
+
+  <cl-card id="card0" [properties]="card0Properties" [hidden]="orchestrationData == undefined || orchestrationData == null" class="mb-4">
+		<div id="row_31" class="flex gap-4 w-full flex-row ">
+			<div id="row_31" class="flex w-full flex-row border-r-2 items-center gap-1">
+				<cl-label id="OrchestrationNameLabel" [properties]="OrchestrationNameLabelProperties">
+				</cl-label>
+				<cl-label id="OrchestrationNameValueLabel" [properties]="OrchestrationNameValueLabelProperties">
+				</cl-label>
+			</div>
+			<div id="row_34" class="flex w-full flex-row border-r-2 items-center gap-1">
+				<cl-label id="OrchestrationTemplateLabel" [properties]="OrchestrationTemplateLabelProperties">
+				</cl-label>
+				<cl-label id="prchestrationTemplateValueLabel" [properties]="orchestrationTemplateValueLabelProperties">
+				</cl-label>
+			</div>
+			<div id="row_33" class="flex w-full flex-row items-center gap-1">
+				<cl-label id="CreatedOn:" [properties]="CreatedOnProperties">
+				</cl-label>
+				<cl-label id="createdOnLabel" [properties]="createdOnLabelProperties">
+				</cl-label>
+			</div>
+		</div>
+	</cl-card>
+	<cl-card id="card1" [properties]="card1Properties">
+		<div id="row_30" class="flex w-full flex-row border-b-2">
+			<cl-label id="label6" [properties]="label6Properties">
+			</cl-label>
+		</div>
+		<cl-data-grid
+		    id="dataGrid1"
+		    class="overflow-auto"
+		    [data]="dataGrid1Properties.data!"
+		    [properties]="dataGrid1Properties"
+		    [showLoading]="dataGrid1Properties.showLoading!"
+		    [totalRecords]="dataGrid1Properties.totalRecords"
+		    [matSortActive]="dataGrid1Properties.matSortActive!"
+		    [matSortDirection]="dataGrid1Properties.matSortDirection!">
+		</cl-data-grid>
+	</cl-card>
+</div>

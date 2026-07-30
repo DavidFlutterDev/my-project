@@ -1,0 +1,21 @@
+
+export enum componentKeys {
+  sftp = 'sftp',
+  cases = 'cases',
+  group = 'group',
+  switch = 'switch',
+  try = 'try',
+  catch = 'catch',
+  http_controller = 'http_controller',
+  tree = 'tree',
+  treeCondition = 'treeCondition',
+  single = 'single',
+  output = 'output',
+  outputs = 'outputs',
+  sequential = 'sequential',
+  fallback = 'fallback',
+  processors = 'processors',
+  condition = 'condition',
+  path= 'path',
+  http_method= 'http_method',
+}

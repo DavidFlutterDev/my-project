@@ -1,0 +1,86 @@
+<div class="flex relative z-40 justify-end p-2 mr-2 {{bodyCssClasses}}">
+  <div class="shadow-lg flex flex-row gap-4 p-2">
+    <mat-icon class="cursor-pointer text-orange-400 icon-size-6" [svgIcon]="'heroicons_outline:magnifying-glass-minus'"
+      (click)="zoomIn()">
+    </mat-icon>
+    <mat-icon class="cursor-pointer text-orange-400 icon-size-6" [svgIcon]="'heroicons_outline:magnifying-glass-plus'"
+      (click)="zoomOut()">
+    </mat-icon>
+    <mat-icon class="cursor-pointer text-blue-600 icon-size-6" [svgIcon]="'heroicons_outline:arrows-pointing-out'"
+      (click)="fitToScreen()">
+    </mat-icon>
+  </div>
+</div>
+
+<div class="flex flex-row h-[calc(100vh-24rem)] overflow-auto relative {{bodyCssClasses}}">
+  <div class="zoom-container" id="parent">
+    <div id="dataContainer" class="data-mapper-container"
+      (scroll)="drawConnections()" [style.transform]="'scale(' + scale + ')'">
+      <!-- Input Section -->
+      <div class="section">
+        <div class="flex w-full">
+          <label class="text-lg font-bold mr-6">Inputs</label>
+        </div>
+        @for (node of dataMap.sources; track node) {
+        <div #inputNode id="node-{{ node.id }}"
+          class="node input cursor-pointer {{ dataMap.id === node.id ? 'selected' : '' }}">
+
+          <app-node class="w-full" [node]="node" [showAddIcon]="false" [showDeleteIcon]="false" [showError]="true"
+            (nodeClick)="nodeClick($event)" (showErrors)="onShowErrors($event)">
+          </app-node>
+
+          @if (!node.children?.length) {
+          <div class="output-right" id="output-right-{{ node.id }}"></div>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Processor Section -->
+      <div class="section ml-6 mr-6 gap-6 items-center">
+        <div class="flex w-full">
+          <label class="text-lg font-bold mr-6">Processor</label>
+          <mat-icon class="cursor-pointer mt-1 text-primary icon-size-5 float-right"
+            [svgIcon]="'heroicons_outline:plus-circle'" (click)="onClickAddProcessor()">
+          </mat-icon>
+        </div>
+        @for (pNode of dataMap.processes; track pNode; let nodeIndex = $index) {
+        @if(pNode) {
+        <div #processorNode class="flex flex-row w-full">
+          @if (nodeIndex === 0) {
+          <div class="size-1 bg-gray-800 relative rounded-full -ml-1"
+            [ngClass]="pNode.type === 'group' ? 'top-10' : 'top-5'" id="input-left-{{ pNode.id }}"></div>
+          }
+          <app-node-layout [isOutputNode]="false" [pNode]="pNode" [nodeIndex]="nodeIndex"
+            [totalNodes]="dataMap.processes!.length" [svgContainerRef]="svgContainerRef" (nodeClick)="nodeClick($event)"
+            (addNode)="onAddProcess($event)" (deleteNode)="onDeleteProcess($event)" [showAddIcon]="true"
+            [showDeleteIcon]="true">
+          </app-node-layout>
+          @if (nodeIndex === dataMap.processes!.length -1 && pNode.type !== 'tree') {
+          <div class="size-1 bg-gray-800 relative rounded-full" [ngClass]="pNode.type === 'group' ? 'top-10' : 'top-5'"
+            id="output-right-{{ pNode.id }}"></div>
+          }
+        </div>
+        }
+        }
+      </div>
+
+      <!-- Output Section -->
+      <div class="section">
+        @if(dataMap && dataMap.destination) {
+        <div class="flex w-full">
+          <label class="text-lg font-bold mr-6">Output</label>
+        </div>
+        <div #outputNode>
+          <app-node-layout [isOutputNode]="true" [pNode]="dataMap.destination" [svgContainerRef]="svgContainerRef"
+            [showAddIcon]="false" [showDeleteIcon]="false" (nodeClick)="nodeClick($event)">
+          </app-node-layout>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- SVG for Line Connections -->
+    <svg #svgContainer class="line-connector"></svg>
+  </div>
+</div>

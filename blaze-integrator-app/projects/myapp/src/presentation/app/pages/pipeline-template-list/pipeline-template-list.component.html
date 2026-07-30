@@ -1,0 +1,26 @@
+<div id="column_999997" class="flex w-full flex-col ">
+  <app-breadcrumb [data]="pipelinetemplatelistService.breadcrumbData"></app-breadcrumb>
+
+	<cl-card id="noDataCard" [properties]="noDataCardProperties" [hidden]="isTemplatesDataAvailable">
+		<div id="column_6" class="flex w-full gap-4 flex-col justify-center items-center">
+			<cl-icon id="noDataIcon" [properties]="noDataIconProperties">
+			</cl-icon>
+			<cl-label id="noDataLabel" [properties]="noDataLabelProperties">
+			</cl-label>
+			<cl-button id="addButton" [properties]="addButtonProperties">
+			</cl-button>
+		</div>
+	</cl-card>
+	<cl-card id="dataCard" [properties]="dataCardProperties" [hidden]="!isTemplatesDataAvailable">
+		<cl-data-grid
+		    id="dataGrid0"
+		    class="overflow-auto"
+		    [data]="dataGrid0Properties.data!"
+		    [properties]="dataGrid0Properties"
+		    [showLoading]="dataGrid0Properties.showLoading!"
+		    [totalRecords]="dataGrid0Properties.totalRecords"
+		    [matSortActive]="dataGrid0Properties.matSortActive!"
+		    [matSortDirection]="dataGrid0Properties.matSortDirection!">
+		</cl-data-grid>
+	</cl-card>
+</div>

@@ -1,0 +1,170 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+
+@layer base {
+  * {
+    /* Text rendering */
+    text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -webkit-text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+
+    /* Remove the focus ring */
+    &:focus {
+      outline: none !important;
+    }
+  }
+
+  /* HTML and Body default styles */
+  html,
+  body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 100%;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  /* Font size */
+  html {
+    font-size: 16px;
+  }
+
+  /* Stylistic alternates for Inter */
+  body {
+    font-size: 0.875rem;
+    font-feature-settings: 'salt';
+  }
+
+  /* Better spacing and border for horizontal rule */
+  hr {
+    margin: 32px 0;
+    border-bottom-width: 1px;
+  }
+
+  /* Make images and videos to take up all the available space */
+  img {
+    width: 100%;
+    vertical-align: top;
+  }
+
+  /* Fix: Disabled placeholder color is too faded on Safari */
+  input[disabled] {
+    opacity: 1;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  /* Set the background and foreground colors */
+  body,
+  .dark,
+  .light {
+    --tw-text-opacity: 1 !important;
+    --tw-bg-opacity: 1 !important;
+    color: rgba(var(--cl-text-default-rgb), var(--tw-text-opacity)) !important;
+    background-color: rgba(var(--cl-bg-default-rgb), var(--tw-bg-opacity)) !important;
+  }
+
+  /* Set the border color */
+  *,
+  ::before,
+  ::after {
+    --tw-border-opacity: 1 !important;
+    border-color: rgba(var(--cl-border-rgb), var(--tw-border-opacity));
+
+    .dark & {
+      --tw-border-opacity: 0.12 !important;
+    }
+  }
+
+  /* Style scrollbars on platforms other than MacOS and iOS */
+  @media only screen and (min-width: 960px) {
+    body:not(.os-mac) {
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      ::-webkit-scrollbar:hover {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(0, 0, 0, 0.06);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        border: 2px solid transparent;
+        border-radius: 20px;
+        box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.24);
+      }
+
+      ::-webkit-scrollbar-thumb:active {
+        border-radius: 20px;
+        box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.37);
+      }
+
+      &.dark {
+        ::-webkit-scrollbar-thumb {
+          box-shadow: inset 0 0 0 20px rgba(255, 255, 255, 0.24);
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+          box-shadow: inset 0 0 0 20px rgba(255, 255, 255, 0.37);
+        }
+      }
+    }
+  }
+
+  /* Set the foreground color for disabled elements */
+  [disabled] * {
+    --tw-text-opacity: 1 !important;
+    color: rgba(var(--cl-text-disabled-rgb), var(--tw-text-opacity)) !important;
+  }
+
+  /* Print styles */
+  @media print {
+    /* Make the base font size smaller for print so everything is scaled nicely */
+    html {
+      font-size: 12px !important;
+    }
+
+    body,
+    .dark,
+    .light {
+      background: none !important;
+    }
+  }
+
+  .dark.fss-theme {
+    --secondary: #191d43;
+    --secondary-two: #222c63;
+    --font-color: #ffffff;
+    --font-color-secondary: #c5ccf2;
+    --tertiary-one: #c7697e;
+    --tertiary-two: #2fcd6e;
+    --tertiary-three: #0da3d2;
+  }
+
+  .dense-mat-accordion {
+    > .mat-expansion-panel .mat-expansion-panel-body {
+      @apply bg-white #{' !important'};
+      padding: 0px !important;
+    }
+    > .mat-expansion-panel {
+      &.mat-expanded,
+      &:hover {
+        @apply shadow-none #{'!important'};
+      }
+    }
+  }
+
+  cl-bread-crumb {
+    display: none !important;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;

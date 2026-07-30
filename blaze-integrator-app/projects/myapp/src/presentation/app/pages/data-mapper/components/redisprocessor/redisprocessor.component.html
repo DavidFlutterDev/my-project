@@ -1,0 +1,28 @@
+<div id="column-6ad3e6c3-8339-4345-a648-09ff89f9df4e" class="flex w-full flex-col p-4 ">
+	<form clValidationForm id="form_0" [suite]="form_0Suite" class="grid w-full gap-4 grid-cols-3" #form0="ngForm"
+		[formValue]="form_0FormValue()" (validChange)="form_0FormValid.set($event)"
+		(errorsChange)="form_0Errors.set($event)" (formValueChange)="setform_0FormValue($event)">
+		<cl-input id="url" name="url" [properties]="redisProcessorService.urlProperties"
+			[ngModel]="form_0Vm.formValue.url">
+		</cl-input>
+		<cl-select id="operation" name="operation" [properties]="redisProcessorService.operationProperties"
+			[ngModel]="form_0Vm.formValue.operation">
+		</cl-select>
+		<cl-input id="key" name="key" [properties]="redisProcessorService.keyProperties"
+			[ngModel]="form_0Vm.formValue.key">
+		</cl-input>
+		@if (this.form0.controls['operation'] && this.form0.controls['operation'].getRawValue() && this.form0.controls['operation'].getRawValue()== 'SET') {
+
+		<cl-input id="value" name="value" [properties]="redisProcessorService.valueProperties"
+			[ngModel]="form_0Vm.formValue.value">
+		</cl-input>
+		<cl-input id="ttl" name="ttl" [properties]="redisProcessorService.ttlProperties"
+			[ngModel]="form_0Vm.formValue.ttl">
+		</cl-input>
+		}
+	</form>
+	<div id="row_7" class="flex gap-4 w-full flex-row justify-end mt-10">
+		<cl-button id="saveButton" [properties]="redisProcessorService.saveButtonProperties">
+		</cl-button>
+	</div>
+</div>

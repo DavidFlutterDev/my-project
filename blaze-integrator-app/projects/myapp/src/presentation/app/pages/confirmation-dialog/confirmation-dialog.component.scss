@@ -1,0 +1,70 @@
+/* Add padding around the entire dialog */
+mat-dialog-content, .dialog-header, .dialog-actions {
+  padding: 15px ;
+}
+
+/* Header styling */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 15px; /* Space between header and content */
+}
+
+.dialog-header mat-icon {
+  font-size: 24px;
+  color: #d32f2f; /* Red color for the info icon */
+}
+
+.dialog-header h2 {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+}
+
+/* Content styling */
+.dialog-content {
+  padding: 15px;
+  font-size: 14px;
+}
+
+/* Button container: Adds space between buttons */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px; /* More space between content and buttons */
+  gap: 15px; /* Space between the Cancel and Confirm buttons */
+}
+
+/* Cancel button styling */
+.cancel-button {
+  background-color: transparent; /* Transparent background */
+  border: 2px solid rgb(104, 104, 245) ; /* Blue outline */
+  color: blue; /* Blue text color */
+  padding: 5px 20px; /* Adjust padding for better sizing */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  border-radius: 10px; /* Optional: rounded corners */
+  font-size: 1rem; /* Optional: adjust font size */
+}
+
+.cancel-button:hover {
+  background-color: rgba(0, 0, 255, 0.1); /* Optional: light background on hover */
+}
+
+/* Confirm button styling */
+.confirm-button {
+  background-color: #d32f2f; /* Red background for Confirm button */
+  color: white;
+  border-radius: 10px; /* Rounded corners */
+  padding: 5px 20px; /* Extra padding for a better look */
+}
+
+.confirm-button:hover {
+  background-color: #b71c1c; /* Darker red on hover */
+}
+
+/* General button styling */
+mat-dialog-actions button {
+  font-size: 14px;
+  min-width: 100px; /* Ensure buttons have a decent width */
+}

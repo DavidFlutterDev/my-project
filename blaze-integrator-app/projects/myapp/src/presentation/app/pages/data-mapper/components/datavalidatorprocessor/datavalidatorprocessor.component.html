@@ -1,0 +1,16 @@
+<div id="column-6bc2aa77-7f5b-4800-a8a2-05374f7771bb" class="flex w-full flex-col p-4">
+
+  <form clValidationForm id="form_55" class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-160"
+    [suite]="form_55Suite" [formValue]="form_55FormValue()" (validChange)="form_55FormValid.set($event)"
+    (errorsChange)="form_55Errors.set($event)" (formValueChange)="setform_55FormValue($event)">
+
+      <cl-select id="schema" name="schema_id" [properties]="dataValidatorProcessorService.schemaSelectProperties"
+        [ngModel]="form_55Vm.formValue.schema_id">
+      </cl-select>
+
+    <div id="row_7" class="flex gap-4 w-full flex-row justify-end mt-10">
+      <cl-button id="saveButton" [properties]="dataValidatorProcessorService.saveButtonProperties">
+      </cl-button>
+    </div>
+  </form>
+</div>

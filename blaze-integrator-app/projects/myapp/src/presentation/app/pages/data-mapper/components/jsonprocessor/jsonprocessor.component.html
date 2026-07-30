@@ -1,0 +1,56 @@
+<div id="column-403a40ae-e695-402a-a907-5830b6311c34" class="flex w-full flex-col p-4 overflow-auto">
+
+  <form clValidationForm id="form_2" class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(65vw)]"
+    [suite]="form_2Suite" [formValue]="form_2FormValue()" (validChange)="form_2FormValid.set($event)"
+    (errorsChange)="form_2Errors.set($event)" (formValueChange)="setform_2FormValue($event)">
+
+    <cl-label id="label9" [properties]="jsonProcessorService.label9Properties">
+    </cl-label>
+
+    @for(mapping of jsonProcessorService.mappingArray; track mapping; let index = $index) {
+    <div id="row_13" class="flex gap-4 w-full flex-row items-center">
+      <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+        <mat-label class="flex items-center">Key {{index}}</mat-label>
+        <input matInput placeholder="Key" [ngModel]="mapping.key"
+          [ngModelOptions]="{updateOn: 'blur', standalone: true}"
+          (ngModelChange)="onKeyValueChange($event, index)" required />
+
+        <mat-error>Mapping key is required</mat-error>
+      </mat-form-field>
+
+
+      @if(node.label === 'fixed_position_parser' ) {
+      <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+        <mat-label class="flex items-center">Length {{index}}</mat-label>
+        <input matInput type="number" placeholder="length" [ngModel]="mapping.length"
+          [ngModelOptions]="{standalone: true}" (ngModelChange)="onLengthValueChange($event, index)" required />
+
+        <mat-error>Mapping length is required</mat-error>
+      </mat-form-field>
+      }
+      @else {
+      <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+        <mat-label class="flex items-center">Field {{index}}</mat-label>
+        <input matInput placeholder="Field" [ngModel]="mapping.field" [ngModelOptions]="{standalone: true}"
+          (ngModelChange)="onFieldValueChange($event, index)" required />
+
+        <mat-error>Mapping field is required</mat-error>
+      </mat-form-field>
+      }
+      @if(jsonProcessorService.mappingArray.length > 1) {
+      <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center" [svgIcon]="'fss_icons:profile-delete'"
+        (click)="onDeleteMapping(index)">
+      </mat-icon>
+    }
+    </div>
+    }
+
+    <cl-button id="button9" [properties]="jsonProcessorService.button9Properties">
+    </cl-button>
+
+    <div id="row_7" class="flex gap-4 w-full flex-row justify-end mt-10">
+      <cl-button id="saveButton" [properties]="jsonProcessorService.saveButtonProperties">
+      </cl-button>
+    </div>
+  </form>
+</div>

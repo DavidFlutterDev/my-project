@@ -1,0 +1,49 @@
+<div id="page_0" class="flex w-full flex-col ">
+
+  <form clValidationForm id="form_4"
+    class="grid gap-4 overflow-y-auto-auto max-h-[calc(60vh)] overflow-x-hidden w-[calc(50vw)]" [suite]="form_4Suite"
+    [formValue]="form_4FormValue()" (validChange)="form_4FormValid.set($event)"
+    (errorsChange)="form_4Errors.set($event)" (formValueChange)="setform_4FormValue($event)">
+
+    <cl-label id="configsLabel" [properties]="setConfigProcessorService.configsLabelProperties">
+    </cl-label>
+
+    <div id="col_45" class="flex gap-4 w-full flex-col bg-primary-50 p-4">
+      @for(config of setConfigProcessorService.configs; track config; let index = $index) {
+      <div id="row_43" class="flex gap-4 w-full flex-row items-center">
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Key {{index}}</mat-label>
+          <input matInput placeholder="Key" [ngModel]="config.key"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onConfigKeyChange($event, index)"
+            required />
+
+          <mat-error>Key is required</mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="flex w-1/2" [floatLabel]="'auto'" [appearance]="'fill'">
+          <mat-label class="flex items-center">Value {{index}}</mat-label>
+          <input matInput placeholder="Value" [ngModel]="config.value"
+            [ngModelOptions]="{updateOn: 'blur', standalone: true}" (ngModelChange)="onConfigValueChange($event, index)"
+            required />
+
+          <mat-error>Value is required</mat-error>
+        </mat-form-field>
+        @if(setConfigProcessorService.configs.length > 1) {
+        <mat-icon class="cursor-pointer text-blue-600 icon-size-6 place-self-center"
+          [svgIcon]="'fss_icons:profile-delete'" (click)="onDeleteConfig(index)">
+        </mat-icon>
+        }
+      </div>
+      }
+
+      <cl-button id="addMore" [properties]="setConfigProcessorService.addMoreProperties">
+      </cl-button>
+    </div>
+
+    <div id="row_8" class="flex gap-4 w-full flex-row justify-end mt-10">
+      <cl-button id="button9" [properties]="setConfigProcessorService.saveButtonProperties">
+      </cl-button>
+    </div>
+  </form>
+</div>

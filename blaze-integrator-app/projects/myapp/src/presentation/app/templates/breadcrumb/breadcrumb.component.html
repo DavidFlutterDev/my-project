@@ -1,0 +1,10 @@
+<div id="row_16" class="flex flex-row items-center gap-1 mt-4 mb-4">
+  @for (item of data; track $index) {
+    <cl-label id=`${item.label}id` [properties]="breadcrumbService.getLabelProperties(item)">
+    </cl-label>
+    @if ($index !== data.length-1) {
+      <cl-icon id="icon5" [properties]="breadcrumbService.breadCrumpSepIconProperties">
+      </cl-icon>
+    }
+  }
+</div>
